@@ -22,6 +22,7 @@
  
  **********************************************************************************/
 
+/* EXTEND THREE.JS LIBRARY */
 THREE.Vector3.prototype.limitScalar = function( s ) {
 	
 	var lengthSquared = this.lengthSq();
