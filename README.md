@@ -6,5 +6,5 @@ boids.js
   
 ### Require ###
 
-This library requires [Three.js](https://github.com/mrdoob/three.js/).
+boids.js depend on [Three.js](https://github.com/mrdoob/three.js/).
 
