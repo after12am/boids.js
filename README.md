@@ -10,4 +10,4 @@ boids.js depend on [Three.js](https://github.com/mrdoob/three.js/).
 
 ### Web Strage ###
 
-[here](http://after12am.github.com/boids.js/boids.min.js) is boid.min.js on github.
+[Here](http://after12am.github.com/boids.js/boids.min.js) is boid.min.js on github.
