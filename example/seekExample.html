@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>SEEK EXAMPLE</title>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script type="text/javascript" src="js/Three.js"></script>
+	<script type="text/javascript" src="../src/boids.js"></script>
+	<script type="text/javascript" src="../src/core/Vehicle.js"></script>
+	<script type="text/javascript" src="../src/core/SteeredVehicle.js"></script>
+	<script type="text/javascript">
+	
+	
+	var camera, scene, renderer,
+	    geometry, material, mesh1, mesh2, mesh3;
+	
+	var v1 = new boids.SteeredVehicle(),
+		v2 = new boids.SteeredVehicle(),
+		v3 = new boids.SteeredVehicle();
+	
+	    function init() {
+
+	        scene = new THREE.Scene();
+
+	        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+	        camera.position.z = 1000;
+	        scene.add( camera );
+
+	        geometry = new THREE.CylinderGeometry( 5, 40, 40 );
+	        material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+
+	        mesh1 = new THREE.Mesh( geometry, material );
+	        scene.add( mesh1 );
+			
+			mesh2 = new THREE.Mesh( geometry, material );
+	        scene.add( mesh2 );
+			
+			mesh3 = new THREE.Mesh( geometry, material );
+	        scene.add( mesh3 );
+			
+			renderer = new THREE.CanvasRenderer();
+	        renderer.setSize( window.innerWidth, window.innerHeight );
+
+	        document.body.appendChild( renderer.domElement );
+			
+			
+			v1.position.set(-400, 200, 0);
+			v2.position.set(0, -200, 0);
+			v3.position.set(400, 200, 0);
+	    }
+
+	    function animate() {
+
+	        // note: three.js includes requestAnimationFrame shim
+	        // requestAnimationFrame( animate );
+			
+			v1.seek( v2.position );
+			v1.flee( v3.position );
+			v1.update();
+			
+			v2.seek( v3.position );
+			v2.flee( v1.position );
+			v2.update();
+			
+			v3.seek( v1.position );
+			v3.flee( v2.position );
+			v3.update();
+			
+			setTimeout(animate, 1000 / 30);
+	        render();
+	    }
+
+	    function render() {
+			
+			mesh1.position = v1.position;
+			mesh2.position = v2.position;
+			mesh3.position = v3.position;
+			
+	        mesh1.rotation.x += 0.01;
+	        mesh1.rotation.y += 0.02;
+			
+			mesh2.rotation.x += 0.02;
+	        mesh2.rotation.y += 0.01;
+	
+			mesh3.rotation.x += 0.005;
+	        mesh3.rotation.y += 0.04;
+			
+	        renderer.render( scene, camera );
+	    }
+		
+		$(document).ready(function() {
+			
+			init();
+		    animate();
+		});
+		
+	</script>
+	
+</head>
+<body>
+	
+</body>
+</html>
