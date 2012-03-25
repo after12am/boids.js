@@ -162,7 +162,7 @@ boids.SteeredVehicle.prototype.pursue = function(/* Vehicle */target)
 	predictedTarget.addSelf(targetVelocity);
 	
 	this.seek(predictedTarget);
-}
+};
 
 boids.SteeredVehicle.prototype.evade = function(/* Vehicle */target)
 {
@@ -177,7 +177,7 @@ boids.SteeredVehicle.prototype.evade = function(/* Vehicle */target)
 	predictedTarget.subSelf( targetVelocity );
 	
 	this.flee(predictedTarget);
-}
+};
 
 boids.SteeredVehicle.prototype.patrol = function(/* Array */paths) {
 	
@@ -191,7 +191,7 @@ boids.SteeredVehicle.prototype.patrol = function(/* Array */paths) {
 	
 	if (isLast && !this.pathLoop) this.arrive(paths[this.pathIndex]);
 	else this.seek(paths[this.pathIndex]);
-}
+};
 
 boids.SteeredVehicle.prototype.flock = function(/* Array */vehicles) {
 	
