@@ -1,13 +1,15 @@
-boids.js
-=====
+# boids.js
 
-##### A simple api which simulates biological behaviour of mainly birds in JavaScript.
+A simple api which simulates biological behaviour of mainly birds in JavaScript.
   
   
-### Require ###
+## Usage
 
-boids.js depend on [Three.js](https://github.com/mrdoob/three.js/).
+boids.js requires [Three.js](https://github.com/mrdoob/three.js/). Here is the usage.
 
-### Web Strage ###
+```html
+<script src="Three.js"></script>
+<script src="http://after12am.github.com/boids.js/boids.min.js"></script>
+```
 
-[Here](http://after12am.github.com/boids.js/boids.min.js) is boid.min.js on github.
+[Live Demo](http://after12am.github.com/boids.js/example/perfume-dev.html)
