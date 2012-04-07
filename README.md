@@ -38,4 +38,4 @@ window.onload = function() {
 ```
 　
 
-[Perfume demo](http://after12am.github.com/boids.js/example/perfume-dev.html) #http://www.perfume-global.com
+[Perfume demo](http://after12am.github.com/boids.js/example/perfume-dev.html) (perfume-global.com)
