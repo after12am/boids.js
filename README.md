@@ -5,7 +5,7 @@ A simple api which simulates biological behaviour of mainly birds in JavaScript.
   
 ### Usage ###
 
-boids.js requires [Three.js](https://github.com/mrdoob/three.js/). Here is the usage.
+boids.js requires [Three.js](https://github.com/mrdoob/three.js/). Here is the basic usage.
 
 ```html
 
@@ -36,5 +36,8 @@ window.onload = function() {
   
 </script>
 ```
+　
 
-[Live Demo](http://after12am.github.com/boids.js/example/perfume-dev.html)
+[Demo](http://after12am.github.com/boids.js/example/perfume-dev.html) forked from Perfume Global Site Project #001
+
+http://www.perfume-global.com
