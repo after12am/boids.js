@@ -39,6 +39,6 @@ window.onload = function() {
 ### Dmoe ###
 
 <ul>
-	<li>[perfume](http://after12am.github.com/boids.js/example/perfume-dev.html)</li>
-	<li>[flocking](http://after12am.github.com/boids.js/example/birds.html)</li>
+	<li><a href="http://after12am.github.com/boids.js/example/perfume-dev.html">perfume</a></li>
+	<li><a href="http://after12am.github.com/boids.js/example/birds.html">flocking</a></li>
 </ul>
