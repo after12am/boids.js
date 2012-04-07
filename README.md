@@ -12,6 +12,7 @@ boids.js requires [Three.js](https://github.com/mrdoob/three.js/). Here is the u
 <script src="Three.js"></script>
 <script src="http://after12am.github.com/boids.js/boids.min.js"></script>
 <script>
+
 window.onload = function() {
 
   var v = new boids.SteeredVehicle( -200, 0, 0 );
@@ -31,7 +32,8 @@ window.onload = function() {
   }
 
   animate();
-}  
+}
+  
 </script>
 ```
 
