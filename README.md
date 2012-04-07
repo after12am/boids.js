@@ -37,4 +37,5 @@ window.onload = function() {
 </script>
 ```
 
-[demo](http://after12am.github.com/boids.js/example/perfume-dev.html) forked from [Perfume Global Site Project #001](http://www.perfume-global.com)
+[Demo](http://after12am.github.com/boids.js/example/perfume-dev.html) forked from Perfume Global Site Project #001
+http://www.perfume-global.com
