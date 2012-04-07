@@ -34,7 +34,7 @@
 			
 			scene = new THREE.Scene();
 			
-			motions[0] = new Bvh.Motion(scene);
+			motions[0] = new Bvh.Motion();
 			motions[0].load(dataBvh[0]);
 			
 			audio = new Audio( sound );
@@ -78,7 +78,7 @@
 				
 				vector = new THREE.Vector3( Math.random() * 2000 - 1000,  - 10000, Math.random() * 2000 - 1000 );
 				
-				var v = new boids.SteeredVehicle( vector.x, vector.y, vector.z );
+				var v = new BOIDS.SteeredVehicle( vector.x, vector.y, vector.z );
 				v.maxSpeed = 40;
 				v.maxForce = 2;
 				v.randomWalk();
