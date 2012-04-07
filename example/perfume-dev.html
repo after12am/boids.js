@@ -160,47 +160,58 @@
 					}
 				});
 				
+			} else {
+				
 				for (var i = 0, l = geometry.vertices.length; i < l; i++) {
-				
-					var v = vehicles[i];
 					
-					if ( v.joint ) {
+					delete vehicles[i].joint;
+				}
+			}
+			
+			for (var i = 0, l = geometry.vertices.length; i < l; i++) {
+			
+				var v = vehicles[i];
 				
-						var d = v.position.distanceTo(v.joint.position);
-						var threshold;
-						
-						if (v.joint.name == "Hips"
-						 || v.joint.name == "LeftHip"
-						 || v.joint.name == "RightHip"
-						 || v.joint.name == "Chest4"
-						) {
-							threshold = 180;
-						}
-						else if (v.joint.name[0] == '*') {
-							threshold = 30;
-						}
-						else {
-							threshold = 4;
-						}
-						
-						if (d < threshold) {
-							v.seek( v.joint.position );
-						}
-				
-						v.addForce(gravity);
-						v.update();
-						
-						if (v.position.y < 0) {
-							v.velocity.y *= -0.6;
-							v.position.y = 0;
-						}
-				
-						geometry.vertices[i].position.copy(v.position); 
+				if ( v.joint ) {
+			
+					var d = v.position.distanceTo(v.joint.position);
+					var threshold;
+					
+					if (v.joint.name == "Hips"
+					 || v.joint.name == "LeftHip"
+					 || v.joint.name == "RightHip"
+					 || v.joint.name == "Chest4"
+					) {
+						threshold = 180;
+					}
+					else if (v.joint.name[0] == '*') {
+						threshold = 30;
+					}
+					else {
+						threshold = 4;
+					}
+					
+					if (d < threshold) {
+						v.seek( v.joint.position );
+					}
+					
+					v.addForce(gravity);
+					v.update();
+					
+					if (v.position.y < 0) {
+						v.velocity.y *= -0.6;
+						v.position.y = 0;
 					}
 				}
+				else
+				{
+					v.update();
+				}
 				
-				geometry.__dirtyVertices = true;
+				geometry.vertices[i].position.copy(v.position);
 			}
+			
+			geometry.__dirtyVertices = true;
 			
 			renderer.render( scene, camera );
 		}
