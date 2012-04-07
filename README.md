@@ -37,4 +37,6 @@ window.onload = function() {
 </script>
 ```
 
-[Live Demo](http://after12am.github.com/boids.js/example/perfume-dev.html)
+### Demo ###
+
+[perfume-dev example](http://after12am.github.com/boids.js/example/perfume-dev.html)
