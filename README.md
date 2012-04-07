@@ -1,6 +1,8 @@
 # boids.js
 
 A simple api which simulates biological behaviour of mainly birds in JavaScript.
+
+Perfume Demo http://after12am.github.com/boids.js/example/perfume-dev.html
   
   
 ### Usage ###
@@ -36,5 +38,3 @@ window.onload = function() {
   
 </script>
 ```　
-
-Perfume Demo http://after12am.github.com/boids.js/example/perfume-dev.html
