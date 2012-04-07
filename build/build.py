@@ -23,13 +23,13 @@ def main(p):
 		c = deleteComment(c)
 		content += c + "\n"
 	
-	f = open("boids.build.js", "w")
+	f = open(output, "w")
 	f.write(content)
 	f.close()
 	print content
 
 
-	
+output = "../boids.build.js"
 paths = [
 	'../src/boids.js',
 	'../src/core/Vehicle.js',

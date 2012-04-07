@@ -22,7 +22,7 @@
  
  **********************************************************************************/
 
-boids.BiologicalVehicle = function( x, y, z ) {
+BOIDS.BiologicalVehicle = function( x, y, z ) {
 	
 	var age = 0.0;
 	
@@ -45,7 +45,7 @@ boids.BiologicalVehicle = function( x, y, z ) {
 	this.aging = aging;
 	this.isDead = isDead;
 	
-	boids.SteeredVehicle.call( this, x, y, z );
+	BOIDS.SteeredVehicle.call( this, x, y, z );
 };
 
-boids.BiologicalVehicle.prototype = new boids.SteeredVehicle();
+BOIDS.BiologicalVehicle.prototype = new BOIDS.SteeredVehicle();

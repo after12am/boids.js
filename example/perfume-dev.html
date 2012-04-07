@@ -11,10 +11,7 @@
 <script type="text/javascript" src="js/bvh/bvh.js"></script>
 <script type="text/javascript" src="js/bvh/parser.js"></script>
 <script type="text/javascript" src="js/bvh/motion.js"></script>
-<script type="text/javascript" src="../src/boids.js"></script>
-<script type="text/javascript" src="../src/core/Vehicle.js"></script>
-<script type="text/javascript" src="../src/core/SteeredVehicle.js"></script>
-<script type="text/javascript" src="../src/core/BiologicalVehicle.js"></script>
+<script type="text/javascript" src="../boids.min.js"></script>
 <script>
 
 	window.onload = function() {
@@ -81,7 +78,7 @@
 				
 				vector = new THREE.Vector3( Math.random() * 2000 - 1000,  - 10000, Math.random() * 2000 - 1000 );
 				
-				var v = new boids.SteeredVehicle( vector.x, vector.y, vector.z );
+				var v = new BOIDS.SteeredVehicle( vector.x, vector.y, vector.z );
 				v.maxSpeed = 40;
 				v.maxForce = 2;
 				v.randomWalk();

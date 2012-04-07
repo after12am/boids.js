@@ -39,9 +39,9 @@ THREE.Vector3.prototype.limitScalar = function( s ) {
 
 
 /* BOIDS LIBRARY */
-var boids = { VERSION: '1.0.1' };
+var BOIDS = { VERSION: '1.0.2' };
 
-boids.nextVehicleId = function() {
+BOIDS.nextVehicleId = function() {
 	
 	var vid = 0;
 	

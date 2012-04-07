@@ -22,9 +22,9 @@
  
  **********************************************************************************/
 
-boids.Vehicle = function( x, y, z ) {
+BOIDS.Vehicle = function( x, y, z ) {
 	
-	this.id = boids.nextVehicleId();
+	this.id = BOIDS.nextVehicleId();
 	this.mass = 1.0;
 	this.maxSpeed = 4.0;
 	this.maxTrailSize = 10;
@@ -33,7 +33,7 @@ boids.Vehicle = function( x, y, z ) {
 	this.trails = [];
 };
 
-boids.Vehicle.prototype.update = function() {
+BOIDS.Vehicle.prototype.update = function() {
 	
 	this.velocity.limitScalar(this.maxSpeed);
 	this.position.addSelf(this.velocity);
@@ -42,7 +42,7 @@ boids.Vehicle.prototype.update = function() {
 	if (this.trails.length >= this.maxTrailSize) this.trails.shift();
 };
 
-boids.Vehicle.prototype.bounce = function(w, h, d) {
+BOIDS.Vehicle.prototype.bounce = function(w, h, d) {
 	
 	if (this.position.x > w * .5)
 	{
@@ -78,7 +78,7 @@ boids.Vehicle.prototype.bounce = function(w, h, d) {
 	}
 };
 
-boids.Vehicle.prototype.wrap = function(w, h, d) {
+BOIDS.Vehicle.prototype.wrap = function(w, h, d) {
 	
 	if (this.position.x > w * .5)
 	{

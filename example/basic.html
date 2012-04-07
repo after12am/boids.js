@@ -1,11 +1,11 @@
 
 <script type="text/javascript" src="js/Three.js"></script>
-<script src="http://after12am.github.com/boids.js/boids.min.js"></script>
+<script src="../boids.min.js"></script>
 <script>
 
 window.onload = function() {
 
-	var v = new boids.SteeredVehicle( -200, 0, 0 );
+	var v = new BOIDS.SteeredVehicle( -200, 0, 0 );
 	var target = new THREE.Vector3( 200, 0, 0 );
 
 	function animate() {

@@ -22,7 +22,7 @@
  
  **********************************************************************************/
 
-boids.SteeredVehicle = function(x, y, z) {
+BOIDS.SteeredVehicle = function(x, y, z) {
 	
 	/* private */
 	var that = this;
@@ -67,12 +67,12 @@ boids.SteeredVehicle = function(x, y, z) {
 		that.steeringForce.addSelf( center.addSelf( offset ) );
 	};
 	
-	boids.Vehicle.call(this, x, y, z);
+	BOIDS.Vehicle.call(this, x, y, z);
 };
 
-boids.SteeredVehicle.prototype = new boids.Vehicle();
+BOIDS.SteeredVehicle.prototype = new BOIDS.Vehicle();
 
-boids.SteeredVehicle.prototype.addForce = function(/* THREE.Vector3 */force) {
+BOIDS.SteeredVehicle.prototype.addForce = function(/* THREE.Vector3 */force) {
 	
 	if ( typeof force == "object" ) {
 		this.steeringForce.addSelf( force );
@@ -81,8 +81,8 @@ boids.SteeredVehicle.prototype.addForce = function(/* THREE.Vector3 */force) {
 	}
 };
 
-boids.SteeredVehicle.prototype.Vehicle_update = boids.SteeredVehicle.prototype.update;
-boids.SteeredVehicle.prototype.update = function() {
+BOIDS.SteeredVehicle.prototype.Vehicle_update = BOIDS.SteeredVehicle.prototype.update;
+BOIDS.SteeredVehicle.prototype.update = function() {
 	
 	this.steeringForce.limitScalar( this.maxForce );
 	this.steeringForce.multiplyScalar( 1.0 / this.mass );
@@ -91,7 +91,7 @@ boids.SteeredVehicle.prototype.update = function() {
 	this.steeringForce.set(0, 0, 0);
 };
 
-boids.SteeredVehicle.prototype.seek = function(/* THREE.Vector3 */target)
+BOIDS.SteeredVehicle.prototype.seek = function(/* THREE.Vector3 */target)
 {
 	var desiredVelocity = new THREE.Vector3();
 	desiredVelocity.set( target.x, target.y, target.z );
@@ -101,7 +101,7 @@ boids.SteeredVehicle.prototype.seek = function(/* THREE.Vector3 */target)
 	this.steeringForce.addSelf( desiredVelocity.subSelf(this.velocity) );
 };
 
-boids.SteeredVehicle.prototype.flee = function(/* THREE.Vector3 */target)
+BOIDS.SteeredVehicle.prototype.flee = function(/* THREE.Vector3 */target)
 {
 	var desiredVelocity = new THREE.Vector3();
 	desiredVelocity.set( target.x, target.y, target.z );
@@ -111,7 +111,7 @@ boids.SteeredVehicle.prototype.flee = function(/* THREE.Vector3 */target)
 	this.steeringForce.subSelf( desiredVelocity.subSelf(this.velocity) );
 };
 
-boids.SteeredVehicle.prototype.arrive = function(/* THREE.Vector3 */target) {
+BOIDS.SteeredVehicle.prototype.arrive = function(/* THREE.Vector3 */target) {
 	
 	var arrivalThreshold = this.maxSpeed * 10;
 	var desiredVelocity = new THREE.Vector3();
@@ -127,7 +127,7 @@ boids.SteeredVehicle.prototype.arrive = function(/* THREE.Vector3 */target) {
 };
 
 // stalk target vehicle
-boids.SteeredVehicle.prototype.pursue = function(/* Vehicle */target)
+BOIDS.SteeredVehicle.prototype.pursue = function(/* Vehicle */target)
 {
 	var lookAheadTime = this.position.distanceTo(target.position) / this.maxSpeed;
 	
@@ -142,7 +142,7 @@ boids.SteeredVehicle.prototype.pursue = function(/* Vehicle */target)
 	this.seek(predictedTarget);
 };
 
-boids.SteeredVehicle.prototype.evade = function(/* Vehicle */target)
+BOIDS.SteeredVehicle.prototype.evade = function(/* Vehicle */target)
 {
 	var lookAheadTime = this.position.distanceTo(target.position) / this.maxSpeed;
 	
@@ -157,7 +157,7 @@ boids.SteeredVehicle.prototype.evade = function(/* Vehicle */target)
 	this.flee(predictedTarget);
 };
 
-boids.SteeredVehicle.prototype.patrol = function(/* Array */paths) {
+BOIDS.SteeredVehicle.prototype.patrol = function(/* Array */paths) {
 	
 	var isLast = this.pathIndex >= paths.length - 1;
 	
@@ -171,7 +171,7 @@ boids.SteeredVehicle.prototype.patrol = function(/* Array */paths) {
 	else this.seek(paths[this.pathIndex]);
 };
 
-boids.SteeredVehicle.prototype.flock = function(/* Array */vehicles) {
+BOIDS.SteeredVehicle.prototype.flock = function(/* Array */vehicles) {
 	
 	var averageVelocity = new THREE.Vector3();;
 	var averagePosition = new THREE.Vector3();;
@@ -204,7 +204,7 @@ boids.SteeredVehicle.prototype.flock = function(/* Array */vehicles) {
 	}
 };
 
-boids.SteeredVehicle.prototype.randomWalk = function() {
+BOIDS.SteeredVehicle.prototype.randomWalk = function() {
 
 	var desiredVelocity = this.getRandVec();
 	desiredVelocity.normalize();
@@ -212,7 +212,7 @@ boids.SteeredVehicle.prototype.randomWalk = function() {
 	this.steeringForce.addSelf( desiredVelocity.subSelf( this.velocity ) );
 };
 
-boids.SteeredVehicle.prototype.getRandVec = function() {
+BOIDS.SteeredVehicle.prototype.getRandVec = function() {
 
 	var vec = new THREE.Vector3();
 	var a1 = (Math.random() * 360 * Math.PI / 180);
@@ -225,7 +225,7 @@ boids.SteeredVehicle.prototype.getRandVec = function() {
 	return vec;
 };
 
-boids.SteeredVehicle.prototype.inSight = function(/* THREE.Vector3 */target)
+BOIDS.SteeredVehicle.prototype.inSight = function(/* THREE.Vector3 */target)
 {
 	if (this.position.distanceTo(target) > this.inSightDist) return false;
 	
@@ -241,7 +241,7 @@ boids.SteeredVehicle.prototype.inSight = function(/* THREE.Vector3 */target)
 	else return true;
 };
 
-boids.SteeredVehicle.prototype.tooClose = function(/* THREE.Vector3 */target) {
+BOIDS.SteeredVehicle.prototype.tooClose = function(/* THREE.Vector3 */target) {
 	
 	return this.position.distanceTo(target) < this.tooCloseDist;
 };
