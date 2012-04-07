@@ -5,7 +5,7 @@ A simple api which simulates biological behaviour of mainly birds in JavaScript.
   
 ### Usage ###
 
-boids.js requires [Three.js](https://github.com/mrdoob/three.js/). Here is the basic usage.
+Here is the basic usage. boids.js requires [Three.js](https://github.com/mrdoob/three.js/). 
 
 ```html
 
