@@ -3,6 +3,7 @@
 /* summarized content */
 
 
+
 THREE.Vector3.prototype.limitScalar = function( s ) {
 	
 	var lengthSquared = this.lengthSq();
@@ -19,7 +20,7 @@ THREE.Vector3.prototype.limitScalar = function( s ) {
 
 
 
-var boids = { VERSION: 1.0 };
+var boids = { VERSION: '1.0.1' };
 
 boids.nextVehicleId = function() {
 	
@@ -164,40 +165,18 @@ boids.SteeredVehicle = function(x, y, z) {
 		that.steeringForce.addSelf( center.addSelf( offset ) );
 	};
 	
-	this.randomWalk = function() {
-		
-		function getRandVec() {
-
-			var vec = new THREE.Vector3();
-			var a1 = (Math.random() * 360 * Math.PI / 180);
-			var a2 = (Math.random() * 2 * Math.PI);
-
-			vec.x = (Math.sin(a1) * Math.cos(a2));
-			vec.y = (Math.sin(a1) * Math.sin(a2));
-			vec.z = (Math.cos(a1));
-			return vec;
-		};
-		
-		var a1 = (Math.random() * 360 * PI / 180);
-		var a2 = (Math.random() * 2 * PI);
-
-		var desiredVelocity = new THREE.Vector3();
-		desiredVelocity.x = (Math.sin(a1) * Math.cos(a2));
-		desiredVelocity.y = (Math.sin(a1) * Math.sin(a2));
-		desiredVelocity.z = (Math.cos(a1));
-		desiredVelocity.normalize();
-		desiredVelocity.multiplyScalar( maxSpeed );
-		steeringForce.addSelf( desiredVelocity.subSelf( velocity ) );
-	};
-	
 	boids.Vehicle.call(this, x, y, z);
 };
 
 boids.SteeredVehicle.prototype = new boids.Vehicle();
 
-boids.SteeredVehicle.prototype.addForce = function(vec) {
+boids.SteeredVehicle.prototype.addForce = function(force) {
 	
-	this.steeringForce.addScalar( vec );
+	if ( typeof force == "object" ) {
+		this.steeringForce.addSelf( force );
+	} else if (typeof force == "number") {
+		this.steeringForce.addScalar( force );
+	}
 };
 
 boids.SteeredVehicle.prototype.Vehicle_update = boids.SteeredVehicle.prototype.update;
@@ -323,6 +302,27 @@ boids.SteeredVehicle.prototype.flock = function(vehicles) {
 	}
 };
 
+boids.SteeredVehicle.prototype.randomWalk = function() {
+
+	var desiredVelocity = this.getRandVec();
+	desiredVelocity.normalize();
+	desiredVelocity.multiplyScalar( this.maxSpeed );
+	this.steeringForce.addSelf( desiredVelocity.subSelf( this.velocity ) );
+};
+
+boids.SteeredVehicle.prototype.getRandVec = function() {
+
+	var vec = new THREE.Vector3();
+	var a1 = (Math.random() * 360 * Math.PI / 180);
+	var a2 = (Math.random() * 2 * Math.PI);
+
+	vec.x = (Math.sin(a1) * Math.cos(a2));
+	vec.y = (Math.sin(a1) * Math.sin(a2));
+	vec.z = (Math.cos(a1));
+
+	return vec;
+};
+
 boids.SteeredVehicle.prototype.inSight = function(target)
 {
 	if (this.position.distanceTo(target) > this.inSightDist) return false;
@@ -343,3 +343,33 @@ boids.SteeredVehicle.prototype.tooClose = function(target) {
 	
 	return this.position.distanceTo(target) < this.tooCloseDist;
 };
+
+
+boids.BiologicalVehicle = function( x, y, z ) {
+	
+	var age = 0.0;
+	
+	function aging( inc ) {
+		
+		age += inc;
+		
+		var per = (this.lifeSpan - age) / this.lifeSpan;
+		
+		this.remainingLifePer = Math.max( 0.0, Math.min( 1.0, per ) );
+	};
+	
+	function isDead() {
+		
+		return age > this.lifeSpan;
+	};
+	
+	this.lifeSpan = 1.0;
+	this.remainingLifePer = 1.0;
+	this.aging = aging;
+	this.isDead = isDead;
+	
+	boids.SteeredVehicle.call( this, x, y, z );
+};
+
+boids.BiologicalVehicle.prototype = new boids.SteeredVehicle();
+

@@ -34,6 +34,7 @@ paths = [
 	'../src/boids.js',
 	'../src/core/Vehicle.js',
 	'../src/core/SteeredVehicle.js',
+	'../src/core/BiologicalVehicle.js'
 ]
 
 if __name__ == '__main__': main(paths)
