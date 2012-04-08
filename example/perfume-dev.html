@@ -195,6 +195,8 @@
 					v.addForce(gravity);
 					v.update();
 					
+					v.velocity.multiplyScalar(0.98);
+					
 					if (v.position.y < 0) {
 						v.velocity.y *= -0.6;
 						v.position.y = 0;
