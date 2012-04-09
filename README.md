@@ -18,7 +18,7 @@ Here is a basic usage. This example is just a console demo. If you want to see g
 
 window.onload = function() {
 
-  var v = new boids.SteeredVehicle( -200, 0, 0 );
+  var v = new BOIDS.SteeredVehicle( -200, 0, 0 );
   var target = new THREE.Vector3( 200, 0, 0 );
 
   function animate() {
