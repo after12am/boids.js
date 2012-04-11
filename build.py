@@ -42,7 +42,7 @@ def compress_glsl(text):
     return text
 
 def build():
-    data = 'var %s = (function() {\nvar exports = {VERSION' + version + '};\n\n' % module + compile(sources()) + '\nreturn exports;\n})();\n'
+    data = 'var %s = (function() {\nvar exports = {VERSION: \'%s\'};\n\n' % (module, version) + compile(sources()) + '\nreturn exports;\n})();\n'
     if 'release' in sys.argv:
         f1, temp1_path = tempfile.mkstemp()
         f2, temp2_path = tempfile.mkstemp()
