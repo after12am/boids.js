@@ -1,11 +1,11 @@
-# boids.js
+<h1>boids.js</h1>
 
 This library provides a api that allow you to control animal motion such as bird and fish.
 
 <h3><a href="http://after12am.github.com/boids.js/example/perfume-dev.html">View Perfume-dev Live Demo</a></h3>
 <h3><a href="http://after12am.github.com/boids.js/example/birds.html">View Flocking Live Demo</a></h3>
 
-### Usage ###
+<h1>Usage</h1>
 
 Here is a very basic example.
 
