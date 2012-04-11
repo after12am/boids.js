@@ -1,15 +1,15 @@
 # boids.js
 
-boids.js provides a simple api which mainly simulates the flocking behaviour of birds.
+This library provides a api that allow you to control animal motion such as bird and fish.
 
-### Note ###
+<ul>
+	<li><h3><a href="http://after12am.github.com/boids.js/example/perfume-dev.html">View Perfume-dev Live Demo</a></h3></li>
+	<li><h3><a href="http://after12am.github.com/boids.js/example/birds.html">View Flocking Live Demo</a></h3></li>
+</ul>
 
-boids.js requires [Three.js](https://github.com/mrdoob/three.js/). 
-
-  
 ### Usage ###
 
-Here is a basic usage. This example is just a console demo. If you want to see graphical one, please scroll down to demo below.
+Here is a very basic usage.
 
 ```html
 <script src="Three.js"></script>
@@ -39,10 +39,3 @@ window.onload = function() {
   
 </script>
 ```
-
-### Demo ###
-
-<ul>
-	<li><a href="http://after12am.github.com/boids.js/example/perfume-dev.html">perfume</a></li>
-	<li><a href="http://after12am.github.com/boids.js/example/birds.html">flocking</a></li>
-</ul>

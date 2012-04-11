@@ -22,18 +22,18 @@
  
  **********************************************************************************/
 
-BOIDS.Vehicle = function( x, y, z ) {
+exports.Vehicle = function( x, y, z ) {
 	
-	this.id = BOIDS.nextVehicleId();
+	this.id = exports.nextVehicleId();
 	this.mass = 1.0;
 	this.maxSpeed = 4.0;
 	this.maxTrailSize = 10;
-	this.position = new THREE.Vector3( x, y, z );
-	this.velocity = new THREE.Vector3();
+	this.position = new exports.Vector3( x, y, z );
+	this.velocity = new exports.Vector3();
 	this.trails = [];
 };
 
-BOIDS.Vehicle.prototype.update = function() {
+exports.Vehicle.prototype.update = function() {
 	
 	this.velocity.limitScalar(this.maxSpeed);
 	this.position.addSelf(this.velocity);
@@ -42,7 +42,7 @@ BOIDS.Vehicle.prototype.update = function() {
 	if (this.trails.length >= this.maxTrailSize) this.trails.shift();
 };
 
-BOIDS.Vehicle.prototype.bounce = function(w, h, d) {
+exports.Vehicle.prototype.bounce = function(w, h, d) {
 	
 	if (this.position.x > w * .5)
 	{
@@ -78,7 +78,7 @@ BOIDS.Vehicle.prototype.bounce = function(w, h, d) {
 	}
 };
 
-BOIDS.Vehicle.prototype.wrap = function(w, h, d) {
+exports.Vehicle.prototype.wrap = function(w, h, d) {
 	
 	if (this.position.x > w * .5)
 	{
