@@ -10,14 +10,13 @@ This library provides a api that allow you to control animal motion such as bird
 Here is a very basic example.
 
 ```html
-<script src="Three.js"></script>
-<script src="http://after12am.github.com/boids.js/boids.min.js"></script>
+<script src="http://after12am.github.com/boids.js/boids.js"></script>
 <script>
 
 window.onload = function() {
 
   var v = new BOIDS.SteeredVehicle( -200, 0, 0 );
-  var target = new THREE.Vector3( 200, 0, 0 );
+  var target = new BOIDS.Vector3( 200, 0, 0 );
 
   function animate() {
     
