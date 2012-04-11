@@ -1,6 +1,6 @@
 <h1>boids.js</h1>
 
-This library provides a api that allow you to control animal motion such as bird and fish.
+This library provides a api that allow you to control animal motion such as bird flock and fish school.
 
 <h3><a href="http://after12am.github.com/boids.js/perfume-dev.html">View Perfume-dev Live Demo</a></h3>
 <h3><a href="http://after12am.github.com/boids.js/birds.html">View Flocking Live Demo</a></h3>
