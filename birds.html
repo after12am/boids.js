@@ -3,7 +3,7 @@
 <script src="js/Stats.js"></script>
 <script src="js/Three.js"></script>
 <script src="obj/Bird.js"></script>
-<script src="../boids.min.js"></script>
+<script src="boids.js"></script>
 
 <script>
 
@@ -74,7 +74,7 @@
 
 		function onDocumentMouseMove( event ) {
 
-			var vector = new THREE.Vector3( event.clientX - SCREEN_WIDTH_HALF, - event.clientY + SCREEN_HEIGHT_HALF, 0 );
+			var vector = new BOIDS.Vector3( event.clientX - SCREEN_WIDTH_HALF, - event.clientY + SCREEN_HEIGHT_HALF, 0 );
 
 			for ( var i = 0, il = boids.length; i < il; i++ ) {
 				

@@ -11,7 +11,7 @@
 <script type="text/javascript" src="js/bvh/bvh.js"></script>
 <script type="text/javascript" src="js/bvh/parser.js"></script>
 <script type="text/javascript" src="js/bvh/motion.js"></script>
-<script type="text/javascript" src="../boids.min.js"></script>
+<script type="text/javascript" src="boids.js"></script>
 <script>
 
 	window.onload = function() {
@@ -23,7 +23,7 @@
 		var width  = window.innerWidth - 20;
 		var height = window.innerHeight - 20;
 		var vehicles_index = 0;
-		var gravity = new THREE.Vector3(0, -0.48, 0);
+		var gravity = new BOIDS.Vector3(0, -0.48, 0);
 		var prevTime = 0;
 		
 		
@@ -63,7 +63,7 @@
 			
 			function getRandVec() {
 
-				var vec = new THREE.Vector3();
+				var vec = new BOIDS.Vector3();
 				var a1 = (Math.random() * 360 * Math.PI / 180);
 				var a2 = (Math.random() * 2 * Math.PI);
 
@@ -76,7 +76,7 @@
 			
 			for ( i = 0; i < 2500; i ++ ) {
 				
-				vector = new THREE.Vector3( Math.random() * 2000 - 1000,  - 10000, Math.random() * 2000 - 1000 );
+				vector = new BOIDS.Vector3( Math.random() * 2000 - 1000,  - 10000, Math.random() * 2000 - 1000 );
 				
 				var v = new BOIDS.SteeredVehicle( vector.x, vector.y, vector.z );
 				v.maxSpeed = 40;
