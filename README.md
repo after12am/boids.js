@@ -15,8 +15,8 @@ Here is a very basic example.
 
 window.onload = function() {
 
-  var v = new BOIDS.SteeredVehicle( -200, 0, 0 );
-  var target = new BOIDS.Vector3( 200, 0, 0 );
+  var v = new boids.SteeredVehicle( -200, 0, 0 );
+  var target = new boids.Vector3( 200, 0, 0 );
 
   function animate() {
     
