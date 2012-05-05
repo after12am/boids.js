@@ -10,308 +10,308 @@
 
 exports.Vector3 = function ( x, y, z ) {
 
-	this.x = x || 0;
-	this.y = y || 0;
-	this.z = z || 0;
+    this.x = x || 0;
+    this.y = y || 0;
+    this.z = z || 0;
 
 };
 
 
 exports.Vector3.prototype = {
 
-	constructor: exports.Vector3,
+    constructor: exports.Vector3,
 
-	set: function ( x, y, z ) {
+    set: function ( x, y, z ) {
 
-		this.x = x;
-		this.y = y;
-		this.z = z;
+        this.x = x;
+        this.y = y;
+        this.z = z;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	setX: function ( x ) {
+    setX: function ( x ) {
 
-		this.x = x;
+        this.x = x;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	setY: function ( y ) {
+    setY: function ( y ) {
 
-		this.y = y;
+        this.y = y;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	setZ: function ( z ) {
+    setZ: function ( z ) {
 
-		this.z = z;
+        this.z = z;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	copy: function ( v ) {
+    copy: function ( v ) {
 
-		this.x = v.x;
-		this.y = v.y;
-		this.z = v.z;
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	clone: function () {
+    clone: function () {
 
-		return new exports.Vector3( this.x, this.y, this.z );
+        return new exports.Vector3( this.x, this.y, this.z );
 
-	},
+    },
 
 
-	add: function ( v1, v2 ) {
+    add: function ( v1, v2 ) {
 
-		this.x = v1.x + v2.x;
-		this.y = v1.y + v2.y;
-		this.z = v1.z + v2.z;
+        this.x = v1.x + v2.x;
+        this.y = v1.y + v2.y;
+        this.z = v1.z + v2.z;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	addSelf: function ( v ) {
+    addSelf: function ( v ) {
 
-		this.x += v.x;
-		this.y += v.y;
-		this.z += v.z;
+        this.x += v.x;
+        this.y += v.y;
+        this.z += v.z;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	addScalar: function ( s ) {
+    addScalar: function ( s ) {
 
-		this.x += s;
-		this.y += s;
-		this.z += s;
+        this.x += s;
+        this.y += s;
+        this.z += s;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	sub: function ( v1, v2 ) {
+    sub: function ( v1, v2 ) {
 
-		this.x = v1.x - v2.x;
-		this.y = v1.y - v2.y;
-		this.z = v1.z - v2.z;
+        this.x = v1.x - v2.x;
+        this.y = v1.y - v2.y;
+        this.z = v1.z - v2.z;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	subSelf: function ( v ) {
+    subSelf: function ( v ) {
 
-		this.x -= v.x;
-		this.y -= v.y;
-		this.z -= v.z;
+        this.x -= v.x;
+        this.y -= v.y;
+        this.z -= v.z;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	multiply: function ( a, b ) {
+    multiply: function ( a, b ) {
 
-		this.x = a.x * b.x;
-		this.y = a.y * b.y;
-		this.z = a.z * b.z;
+        this.x = a.x * b.x;
+        this.y = a.y * b.y;
+        this.z = a.z * b.z;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	multiplySelf: function ( v ) {
+    multiplySelf: function ( v ) {
 
-		this.x *= v.x;
-		this.y *= v.y;
-		this.z *= v.z;
+        this.x *= v.x;
+        this.y *= v.y;
+        this.z *= v.z;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	multiplyScalar: function ( s ) {
+    multiplyScalar: function ( s ) {
 
-		this.x *= s;
-		this.y *= s;
-		this.z *= s;
+        this.x *= s;
+        this.y *= s;
+        this.z *= s;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	divideSelf: function ( v ) {
+    divideSelf: function ( v ) {
 
-		this.x /= v.x;
-		this.y /= v.y;
-		this.z /= v.z;
+        this.x /= v.x;
+        this.y /= v.y;
+        this.z /= v.z;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	divideScalar: function ( s ) {
+    divideScalar: function ( s ) {
 
-		if ( s ) {
+        if ( s ) {
 
-			this.x /= s;
-			this.y /= s;
-			this.z /= s;
+            this.x /= s;
+            this.y /= s;
+            this.z /= s;
 
-		} else {
+        } else {
 
-			this.x = 0;
-			this.y = 0;
-			this.z = 0;
+            this.x = 0;
+            this.y = 0;
+            this.z = 0;
 
-		}
+        }
 
-		return this;
+        return this;
 
-	},
+    },
 
 
-	negate: function() {
+    negate: function() {
 
-		return this.multiplyScalar( -1 );
+        return this.multiplyScalar( -1 );
 
-	},
+    },
 
-	dot: function ( v ) {
+    dot: function ( v ) {
 
-		return this.x * v.x + this.y * v.y + this.z * v.z;
+        return this.x * v.x + this.y * v.y + this.z * v.z;
 
-	},
+    },
 
-	lengthSq: function () {
+    lengthSq: function () {
 
-		return this.x * this.x + this.y * this.y + this.z * this.z;
+        return this.x * this.x + this.y * this.y + this.z * this.z;
 
-	},
+    },
 
-	length: function () {
+    length: function () {
 
-		return Math.sqrt( this.lengthSq() );
+        return Math.sqrt( this.lengthSq() );
 
-	},
+    },
 
-	lengthManhattan: function () {
+    lengthManhattan: function () {
 
-		// correct version
-		// return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z );
+        // correct version
+        // return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z );
 
-		return this.x + this.y + this.z;
+        return this.x + this.y + this.z;
 
-	},
+    },
 
-	normalize: function () {
+    normalize: function () {
 
-		return this.divideScalar( this.length() );
+        return this.divideScalar( this.length() );
 
-	},
+    },
 
-	setLength: function ( l ) {
+    setLength: function ( l ) {
 
-		return this.normalize().multiplyScalar( l );
+        return this.normalize().multiplyScalar( l );
 
-	},
+    },
 
 
-	cross: function ( a, b ) {
+    cross: function ( a, b ) {
 
-		this.x = a.y * b.z - a.z * b.y;
-		this.y = a.z * b.x - a.x * b.z;
-		this.z = a.x * b.y - a.y * b.x;
+        this.x = a.y * b.z - a.z * b.y;
+        this.y = a.z * b.x - a.x * b.z;
+        this.z = a.x * b.y - a.y * b.x;
 
-		return this;
+        return this;
 
-	},
+    },
 
-	crossSelf: function ( v ) {
+    crossSelf: function ( v ) {
 
-		var x = this.x, y = this.y, z = this.z;
+        var x = this.x, y = this.y, z = this.z;
 
-		this.x = y * v.z - z * v.y;
-		this.y = z * v.x - x * v.z;
-		this.z = x * v.y - y * v.x;
+        this.x = y * v.z - z * v.y;
+        this.y = z * v.x - x * v.z;
+        this.z = x * v.y - y * v.x;
 
-		return this;
+        return this;
 
-	},
+    },
 
 
-	distanceTo: function ( v ) {
+    distanceTo: function ( v ) {
 
-		return Math.sqrt( this.distanceToSquared( v ) );
+        return Math.sqrt( this.distanceToSquared( v ) );
 
-	},
+    },
 
-	distanceToSquared: function ( v ) {
+    distanceToSquared: function ( v ) {
 
-		return new exports.Vector3().sub( this, v ).lengthSq();
+        return new exports.Vector3().sub( this, v ).lengthSq();
 
-	},
+    },
 
 
-	setPositionFromMatrix: function ( m ) {
+    setPositionFromMatrix: function ( m ) {
 
-		this.x = m.n14;
-		this.y = m.n24;
-		this.z = m.n34;
+        this.x = m.n14;
+        this.y = m.n24;
+        this.z = m.n34;
 
-	},
+    },
 
-	setRotationFromMatrix: function ( m ) {
+    setRotationFromMatrix: function ( m ) {
 
-		var cosY = Math.cos( this.y );
+        var cosY = Math.cos( this.y );
 
-		this.y = Math.asin( m.n13 );
+        this.y = Math.asin( m.n13 );
 
-		if ( Math.abs( cosY ) > 0.00001 ) {
+        if ( Math.abs( cosY ) > 0.00001 ) {
 
-			this.x = Math.atan2( - m.n23 / cosY, m.n33 / cosY );
-			this.z = Math.atan2( - m.n12 / cosY, m.n11 / cosY );
+            this.x = Math.atan2( - m.n23 / cosY, m.n33 / cosY );
+            this.z = Math.atan2( - m.n12 / cosY, m.n11 / cosY );
 
-		} else {
+        } else {
 
-			this.x = 0;
-			this.z = Math.atan2( m.n21, m.n22 );
+            this.x = 0;
+            this.z = Math.atan2( m.n21, m.n22 );
 
-		}
+        }
 
-	},
+    },
 
-	isZero: function () {
+    isZero: function () {
 
-		return ( this.lengthSq() < 0.0001 /* almostZero */ );
+        return ( this.lengthSq() < 0.0001 /* almostZero */ );
 
-	}
+    }
 
 };
 
 /* EXTEND THREE.Vector3() */
 exports.Vector3.prototype.limitScalar = function( s ) {
-	
-	var lengthSquared = this.lengthSq();
-	
-	if( lengthSquared > s * s && lengthSquared > 0 ) {
-		
-		var ratio = s / Math.sqrt( lengthSquared );
-		this.x *= ratio;
-		this.y *= ratio;
-		this.z *= ratio;
-	}
-	return this;
+    
+    var lengthSquared = this.lengthSq();
+    
+    if( lengthSquared > s * s && lengthSquared > 0 ) {
+        
+        var ratio = s / Math.sqrt( lengthSquared );
+        this.x *= ratio;
+        this.y *= ratio;
+        this.z *= ratio;
+    }
+    return this;
 };

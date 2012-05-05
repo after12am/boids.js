@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 version = '1.1.0'
-module = 'BOIDS'
+module = 'boids'
 input_path = 'src/'
 output_path = 'www/boids.js'
 

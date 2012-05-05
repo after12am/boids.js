@@ -1,4 +1,3 @@
-
 <script src="js/RequestAnimationFrame.js"></script>
 <script src="js/Stats.js"></script>
 <script src="js/Three.js"></script>
@@ -7,123 +6,123 @@
 
 <script>
 
-	window.onload = function() {
-		
-		var SCREEN_WIDTH = window.innerWidth - 20,
-		SCREEN_HEIGHT = window.innerHeight - 20,
-		SCREEN_WIDTH_HALF = SCREEN_WIDTH  / 2,
-		SCREEN_HEIGHT_HALF = SCREEN_HEIGHT / 2;
+    window.onload = function() {
+        
+        var SCREEN_WIDTH = window.innerWidth - 20,
+        SCREEN_HEIGHT = window.innerHeight - 20,
+        SCREEN_WIDTH_HALF = SCREEN_WIDTH  / 2,
+        SCREEN_HEIGHT_HALF = SCREEN_HEIGHT / 2;
 
-		var camera, scene, renderer,
-		birds, bird;
+        var camera, scene, renderer,
+        birds, bird;
 
-		var boid, boids;
+        var birdBoid, birdBoids;
 
-		var stats;
+        var stats;
 
-		init();
-		animate();
+        init();
+        animate();
 
-		function init() {
+        function init() {
 
-			camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000 );
-			camera.position.z = 450;
+            camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000 );
+            camera.position.z = 450;
 
-			scene = new THREE.Scene();
+            scene = new THREE.Scene();
 
-			birds = [];
-			boids = [];
+            birds = [];
+            birdBoids = [];
 
-			for ( var i = 0; i < 160; i ++ ) {
+            for ( var i = 0; i < 160; i ++ ) {
 
-				boid = boids[ i ] = new BOIDS.SteeredVehicle();
-				boid.position.x = Math.random() * 400 - 200;
-				boid.position.y = Math.random() * 400 - 200;
-				boid.position.z = Math.random() * 400 - 200;
-				boid.velocity.x = Math.random() * 2 - 1;
-				boid.velocity.y = Math.random() * 2 - 1;
-				boid.velocity.z = Math.random() * 2 - 1;
-				
-				//boid.setAvoidWalls( true );
-				//boid.setWorldSize( 500, 500, 400 );
-				
-				bird = birds[ i ] = new THREE.Mesh( new Bird(), new THREE.MeshBasicMaterial( { color:Math.random() * 0xffffff } ) );
-				bird.phase = Math.floor( Math.random() * 62.83 );
-				bird.position = boids[ i ].position;
-				bird.doubleSided = true;
-				// bird.scale.x = bird.scale.y = bird.scale.z = 10;
-				scene.add( bird );
+                birdBoid = birdBoids[ i ] = new boids.SteeredVehicle();
+                birdBoid.position.x = Math.random() * 400 - 200;
+                birdBoid.position.y = Math.random() * 400 - 200;
+                birdBoid.position.z = Math.random() * 400 - 200;
+                birdBoid.velocity.x = Math.random() * 2 - 1;
+                birdBoid.velocity.y = Math.random() * 2 - 1;
+                birdBoid.velocity.z = Math.random() * 2 - 1;
+                
+                //birdBoid.setAvoidWalls( true );
+                //birdBoid.setWorldSize( 500, 500, 400 );
+                
+                bird = birds[ i ] = new THREE.Mesh( new Bird(), new THREE.MeshBasicMaterial( { color:Math.random() * 0xffffff } ) );
+                bird.phase = Math.floor( Math.random() * 62.83 );
+                bird.position = birdBoids[ i ].position;
+                bird.doubleSided = true;
+                // bird.scale.x = bird.scale.y = bird.scale.z = 10;
+                scene.add( bird );
 
 
-			}
+            }
 
-			renderer = new THREE.WebGLRenderer();
-			// renderer.autoClear = false;
-			renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+            renderer = new THREE.WebGLRenderer();
+            // renderer.autoClear = false;
+            renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
 
-			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-			document.body.appendChild( renderer.domElement );
+            document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+            document.body.appendChild( renderer.domElement );
 
-			stats = new Stats();
-			stats.domElement.style.position = 'absolute';
-			stats.domElement.style.left = '0px';
-			stats.domElement.style.top = '0px';
+            stats = new Stats();
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
 
-			document.body.appendChild(stats.domElement);
-		}
+            document.body.appendChild(stats.domElement);
+        }
 
-		function onDocumentMouseMove( event ) {
+        function onDocumentMouseMove( event ) {
 
-			var vector = new BOIDS.Vector3( event.clientX - SCREEN_WIDTH_HALF, - event.clientY + SCREEN_HEIGHT_HALF, 0 );
+            var vector = new boids.Vector3( event.clientX - SCREEN_WIDTH_HALF, - event.clientY + SCREEN_HEIGHT_HALF, 0 );
 
-			for ( var i = 0, il = boids.length; i < il; i++ ) {
-				
-				boid = boids[ i ];
-				
-				vector.z = boid.position.z;
-				
-				if (boid.position.distanceTo( vector ) < 400) {
-					
-					boid.flee( vector );
-				}
-			}
-		}
-		
-		function animate() {
-			
-			requestAnimationFrame( animate );
-			
-			render();
-			
-			stats.update();
-		}
+            for ( var i = 0, il = birdBoids.length; i < il; i++ ) {
+                
+                birdBoid = birdBoids[ i ];
+                
+                vector.z = birdBoid.position.z;
+                
+                if (birdBoid.position.distanceTo( vector ) < 400) {
+                    
+                    birdBoid.flee( vector );
+                }
+            }
+        }
+        
+        function animate() {
+            
+            requestAnimationFrame( animate );
+            
+            render();
+            
+            stats.update();
+        }
 
-		function render() {
+        function render() {
 
-			for ( var i = 0, il = birds.length; i < il; i++ ) {
+            for ( var i = 0, il = birds.length; i < il; i++ ) {
 
-				boid = boids[ i ];
-				boid.flock( boids );
-				boid.update();
-				boid.wrap( 500, 500, 400 );
-				
-				bird = birds[ i ];
-				
-				color = bird.material.color;
-				color.r = color.g = color.b = ( 500 - bird.position.z ) / 1000;
-				
-				bird.rotation.y = Math.atan2( - boid.velocity.z, boid.velocity.x );
-				bird.rotation.z = Math.asin( boid.velocity.y / boid.velocity.length() );
+                birdBoid = birdBoids[ i ];
+                birdBoid.flock( birdBoids );
+                birdBoid.update();
+                birdBoid.wrap( 500, 500, 400 );
+                
+                bird = birds[ i ];
+                
+                color = bird.material.color;
+                color.r = color.g = color.b = ( 500 - bird.position.z ) / 1000;
+                
+                bird.rotation.y = Math.atan2( - birdBoid.velocity.z, birdBoid.velocity.x );
+                bird.rotation.z = Math.asin( birdBoid.velocity.y / birdBoid.velocity.length() );
 
-				bird.phase = ( bird.phase + ( Math.max( 0, bird.rotation.z ) + 0.1 )  ) % 62.83;
-				bird.geometry.vertices[ 5 ].position.y = bird.geometry.vertices[ 4 ].position.y = Math.sin( bird.phase ) * 5;
+                bird.phase = ( bird.phase + ( Math.max( 0, bird.rotation.z ) + 0.1 )  ) % 62.83;
+                bird.geometry.vertices[ 5 ].position.y = bird.geometry.vertices[ 4 ].position.y = Math.sin( bird.phase ) * 5;
 
-			}
+            }
 
-			renderer.render( scene, camera );
+            renderer.render( scene, camera );
 
-		}
-		
-	}
+        }
+        
+    }
 
 </script>
