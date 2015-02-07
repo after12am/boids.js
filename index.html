@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>seek example</title>
+<style type="text/css">
+body {
+    margin: 0;
+}
+</style>
 </head>
 <body>
 <script src="scripts/jquery.js"></script>
@@ -13,17 +18,12 @@
 
 window.onload = function() {
     
-    var SCREEN_WIDTH = window.innerWidth - 20;
-    var SCREEN_HEIGHT = window.innerHeight - 20;
-    var SCREEN_WIDTH_HALF = SCREEN_WIDTH  / 2;
-    var SCREEN_HEIGHT_HALF = SCREEN_HEIGHT / 2;
-    
     var camera, scene, renderer, bird;
     var bird, target;
     
     function init() {
         
-        camera = new THREE.PerspectiveCamera(75, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000);
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
         camera.position.z = 100;
         
         bird = new Bird();
@@ -39,8 +39,8 @@ window.onload = function() {
             throw e;
         }
         
-        renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        renderer.setClearColor(new THREE.Color(0xffffff));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(new THREE.Color(0xfff9f4));
         
         document.body.appendChild( renderer.domElement );
     }
