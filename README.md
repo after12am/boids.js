@@ -1,16 +1,16 @@
-<h1>boids.js</h1>
+boids.js
+========
 
-This library provides a api that allow you to control animal motion such as bird flock and fish school.
+This library allows you to simulate bird flock and fish school. This computer model of coordinated animal motion was 
+designed by [Craig Reynolds](http://www.red3d.com/cwr/boids/) in 1986. This model consists of three simple rules 
+which are separation, alignment and cohesion.
 
-<h3><a href="http://after12am.github.com/boids.js/perfume-dev.html">View Perfume-dev Live Demo</a></h3>
-<h3><a href="http://after12am.github.com/boids.js/birds.html">View Flocking Live Demo</a></h3>
-
-<h1>Usage</h1>
+## Usage
 
 Here is a very basic example.
 
 ```html
-<script src="http://after12am.github.com/boids.js/boids.js"></script>
+<script src="boids.js"></script>
 <script>
 
 window.onload = function() {
