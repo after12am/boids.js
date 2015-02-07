@@ -32,7 +32,13 @@ window.onload = function() {
         scene = new THREE.Scene();
         scene.add(bird);
         
-        renderer = new THREE.WebGLRenderer();
+        try {
+            renderer = new THREE.WebGLRenderer();
+        } catch (e) {
+            alert('Sorry, but your graphics card does not seem to support WebGL.');
+            throw e;
+        }
+        
         renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         renderer.setClearColor(new THREE.Color(0xffffff));
         
