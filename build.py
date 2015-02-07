@@ -3,7 +3,7 @@
 version = '1.1.0'
 module = 'boids'
 input_path = 'src/'
-output_path = 'www/boids.js'
+output_path = 'boids.js'
 
 import re, os, sys, time, tempfile
 
@@ -11,7 +11,7 @@ header = '''/*
  * boids.js
  * https://github.com/after12am/boids.js
  *
- * Copyright 2012 Satoshi Okami
+ * Copyright 2012-2015 Satoshi Okami
  * Released under the MIT license
  */
 '''
@@ -29,7 +29,7 @@ def sources():
 def compile(sources):
     return '\n'.join('// %s\n%s' % (path, open(path).read()) for path in sources)
 
-def compress_glsl(text):
+def compress_source(text):
     def compress(match):
         text = match.group(0)
         if '  ' in text: # assume all strings with two consecutive spaces are glsl
@@ -53,7 +53,7 @@ def build():
         os.remove(temp1_path)
         data = open(temp2_path).read()
         os.remove(temp2_path)
-        data = compress_glsl(data)
+        data = compress_source(data)
     data = header + data
     open(output_path, 'w').write(data)
     print 'built %s (%u lines)' % (output_path, len(data.split('\n')))
