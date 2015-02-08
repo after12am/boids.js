@@ -33,7 +33,7 @@ window.onload = function() {
         scene.add(bird);
         
         try {
-            renderer = new THREE.WebGLRenderer();
+            renderer = new THREE.WebGLRenderer({ antialias: true });
         } catch (e) {
             alert('Sorry, but your graphics card does not seem to support WebGL.');
             throw e;
