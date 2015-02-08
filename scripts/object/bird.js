@@ -9,7 +9,10 @@ var Bird = function () {
     }
     
     var geometry = new THREE.Geometry();
-    var material = new THREE.MeshBasicMaterial({ color: new THREE.Color( 0x646464 ) });
+    var material = new THREE.MeshBasicMaterial({
+        color: new THREE.Color( 0x646464 ),
+        side: THREE.DoubleSide
+    });
     
     v(   5,   0,   0 );
     v( - 5, - 2,   1 );
@@ -30,7 +33,6 @@ var Bird = function () {
     THREE.Mesh.call(this, geometry, material);
     
     this.phase = Math.floor(Math.random() * 62.83);
-    this.doubleSided = true;
     
     this.boid = new boids.SteeredVehicle(0, 0, 0);
     this.boid.maxForce = .15;
