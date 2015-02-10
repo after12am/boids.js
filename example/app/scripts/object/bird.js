@@ -41,13 +41,16 @@ var Bird = function () {
 
 Bird.prototype = Object.create(THREE.Mesh.prototype);
 
+Bird.prototype.behavior = function() {
+    return this.boid;
+}
+
 /*
   @param target boids.Vector3
 */
 Bird.prototype.seek = function(target) {
     
     this.boid.seek(target);
-    this.update();
     
 }
 
@@ -57,7 +60,18 @@ Bird.prototype.seek = function(target) {
 Bird.prototype.flock = function(boids) {
     
     this.boid.flock(boids);
-    this.update();
+    
+}
+
+Bird.prototype.wrap = function(width, height, depth) {
+    
+    this.boid.wrap(width, height, depth);
+    
+}
+
+Bird.prototype.bounce = function(width, height, depth) {
+    
+    this.boid.bounce(width, height, depth);
     
 }
 
@@ -65,9 +79,6 @@ Bird.prototype.inSight = function(target) {
     return this.boid.inSight(target);
 }
 
-/*
-    private
-*/
 Bird.prototype.update = function() {
     
     this.boid.update();

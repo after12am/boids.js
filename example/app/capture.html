@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>seek example</title>
+<style type="text/css">
+body {
+    margin: 0;
+}
+</style>
+</head>
+<body>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/threejs/build/three.js"></script>
+<script src="scripts/object/bird.js"></script>
+<script src="scripts/boids.js"></script>
+<script type="text/javascript">
+
+window.onload = function() {
+    
+    var camera, scene, renderer, bird;
+    var bird, target;
+    
+    function init() {
+        
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+        camera.position.z = 100;
+        
+        bird = new Bird();
+        target = new boids.Vector3();
+        
+        scene = new THREE.Scene();
+        scene.add(bird);
+        
+        try {
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+        } catch (e) {
+            alert('Sorry, but your graphics card does not seem to support WebGL.');
+            throw e;
+        }
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(new THREE.Color(0xffffff));
+        
+        document.body.appendChild( renderer.domElement );
+    }
+    
+    function animate() {
+        
+        requestAnimationFrame(animate);
+        render();
+    }
+    
+    function render() {
+        
+        if (bird.inSight(target)) {
+            target = new boids.Vector3(
+                Math.random() * 200 - 100,
+                Math.random() * 200 - 100,
+                Math.random() * 200 - 100
+            );
+        }
+        
+        //bird.seek(target);
+        
+        
+        renderer.render(scene, camera);
+    }
+    
+    init();
+    
+    animate();
+}
+</script>
+</body>
+</html>

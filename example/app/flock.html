@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>seek example</title>
+<title>flock example</title>
 <link href="styles/reset.css" rel="stylesheet" type="text/css">
 <link href="styles/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+    
 <div class="wrapper">
     <div id="open-sb" class="menu-button menu-left"></div>
 </div>
@@ -33,7 +33,8 @@
 <script type="text/javascript">
 
 var camera, scene, renderer;
-var bird, target;
+var birds = [];
+var bird_num = 100;
 
 function animate() {
     
@@ -43,36 +44,39 @@ function animate() {
 
 function render() {
     
-    if (bird.inSight(target)) {
-        target = new boids.Vector3(
-            Math.random() * 200 - 100,
-            Math.random() * 200 - 100,
-            Math.random() * 200 - 100
-        );
+    for (var i = 0; i < bird_num; i++) {
+        birds[i].flock(birds.map(function(item) { return item.behavior(); }));
+        birds[i].bounce(window.innerWidth + 200, window.innerHeight + 200, 300);
+        birds[i].update();
     }
-    
-    bird.seek(target);
-    bird.update();
     
     renderer.render(scene, camera);
 }
 
 window.onload = function() {
     
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.z = 100;
-    
-    bird = new Bird();
-    target = new boids.Vector3();
-    
-    scene = new THREE.Scene();
-    scene.add(bird);
-    
     try {
         renderer = new THREE.WebGLRenderer({ antialias: true });
     } catch (e) {
         alert('Sorry, but your graphics card does not seem to support WebGL.');
         throw e;
+    }
+    
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+    camera.position.z = 400;
+    
+    scene = new THREE.Scene();
+    
+    for (var i = 0; i < bird_num; i++) {
+        birds.push(new Bird());
+        birds[i].boid.position.x = Math.random() * 1000 - 500;
+        birds[i].boid.position.y = Math.random() * 1000 - 500;
+        birds[i].boid.position.z = Math.random() * 1000 - 500;
+        birds[i].boid.velocity.x = Math.random() * 4 - 2;
+        birds[i].boid.velocity.y = Math.random() * 4 - 2;
+        birds[i].boid.velocity.z = Math.random() * 4 - 2;
+        birds[i].boid.maxForce   = Math.random() * .2;
+        scene.add(birds[i]);
     }
     
     renderer.setSize(window.innerWidth, window.innerHeight);
