@@ -3,7 +3,7 @@
 version = '1.1.0'
 module = 'boids'
 input_path = 'src/'
-output_path = 'boids.js'
+output_path = 'build/boids.js'
 
 import re, os, sys, time, tempfile
 
