@@ -1,1 +1,1 @@
-../../../boids.js
+../../../build/boids.js

@@ -1,9 +1,7 @@
 {
-  "name": "example-",
+  "name": "example-boids.js",
   "private": true,
   "dependencies": {
-    "jquery": "~2.1.3",
-    "threejs": "*",
-    "simple-sidebar": "~1.1.0"
+    
   }
 }
