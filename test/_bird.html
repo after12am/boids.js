@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>seek example</title>
+<style type="text/css">
+body {
+    margin: 0;
+}
+</style>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="../scripts/three.min.js"></script>
+<script src="../scripts/object/bird.js"></script>
+<script src="../scripts/boids.js"></script>
+<script type="text/javascript">
+
+var camera, scene, renderer, bird;
+var bird, target;
+
+function animate() {
+    
+    requestAnimationFrame(animate);
+    render();
+}
+
+function render() {
+    
+    if (bird.inSight(target)) {
+        target = new boids.Vector3(
+            Math.random() * 200 - 100,
+            Math.random() * 200 - 100,
+            Math.random() * 200 - 100
+        );
+    }
+    
+    //bird.seek(target);
+    
+    
+    renderer.render(scene, camera);
+}
+
+window.onload = function() {
+    
+    try {
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+    } catch (e) {
+        alert('Sorry, but your graphics card does not seem to support WebGL.');
+        return;
+    }
+    
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+    camera.position.z = 100;
+    
+    bird = new Bird();
+    bird.position.z = 90;
+    bird.rotation.y = 0.85
+    bird.rotation.z = -0.4
+    bird.rotation.x = 0.7
+    
+    target = new boids.Vector3();
+    
+    scene = new THREE.Scene();
+    scene.add(bird);
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(new THREE.Color(0xffffff));
+    
+    document.body.appendChild( renderer.domElement );
+    
+    animate();
+}
+</script>
+</body>
+</html>

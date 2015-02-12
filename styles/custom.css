@@ -1,0 +1,16 @@
+#header > header {
+    padding: 1.8em;
+}
+
+#wrapper .copyright {
+    font-size: 0.8em;
+    list-style: none;
+}
+
+#wrapper .copyright ul li:first-child {
+    padding-right: 0.4em;
+}
+
+html, body, #wrapper, #main {
+    height: 100%;
+}
