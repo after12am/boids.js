@@ -55,6 +55,33 @@ exports.THREE.Bird.prototype.seek = function(target) {
 }
 
 /*
+  @param target boids.Vector3
+*/
+exports.THREE.Bird.prototype.flee = function(target) {
+    
+    this.boid.flee(target);
+    
+}
+
+/*
+  @param target boids.Vector3
+*/
+exports.THREE.Bird.prototype.arrive = function(target) {
+    
+    this.boid.arrive(target);
+    
+}
+
+/*
+  @param target boids.Vector3
+*/
+exports.THREE.Bird.prototype.tooClose = function(target) {
+    
+    this.boid.tooClose(target);
+    
+}
+
+/*
   @param array of boids.Vector3
 */
 exports.THREE.Bird.prototype.flock = function(boids) {
