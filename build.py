@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-version = '1.1.0'
+version = '1.2.0'
 module = 'boids'
 input_path = 'src/'
 output_path = 'build/boids.js'
@@ -22,7 +22,8 @@ def sources():
         'src/boids.js',
         'src/core/Vehicle.js',
         'src/core/SteeredVehicle.js',
-        'src/core/BiologicalVehicle.js'
+        'src/core/BiologicalVehicle.js',
+        'src/object/bird.js'
     ]
     return filePaths
 
@@ -42,7 +43,7 @@ def compress_source(text):
     return text
 
 def build():
-    data = 'var %s = (function() {\nvar exports = {VERSION: \'%s\'};\n\n' % (module, version) + compile(sources()) + '\nreturn exports;\n})();\n'
+    data = 'var %s = (function() {\nvar exports = {VERSION: \'%s\'};\n\nexports.THREE = {};\n\n' % (module, version) + compile(sources()) + '\nreturn exports;\n})();\n'
     if 'release' in sys.argv:
         f1, temp1_path = tempfile.mkstemp()
         f2, temp2_path = tempfile.mkstemp()

@@ -1,4 +1,4 @@
-var Bird = function () {
+exports.THREE.Bird = function () {
     
     function v(x, y, z) {
         geometry.vertices.push(new THREE.Vector3(x, y, z));
@@ -39,16 +39,16 @@ var Bird = function () {
     
 }
 
-Bird.prototype = Object.create(THREE.Mesh.prototype);
+exports.THREE.Bird.prototype = Object.create(THREE.Mesh.prototype);
 
-Bird.prototype.behavior = function() {
+exports.THREE.Bird.prototype.behavior = function() {
     return this.boid;
 }
 
 /*
   @param target boids.Vector3
 */
-Bird.prototype.seek = function(target) {
+exports.THREE.Bird.prototype.seek = function(target) {
     
     this.boid.seek(target);
     
@@ -57,29 +57,29 @@ Bird.prototype.seek = function(target) {
 /*
   @param array of boids.Vector3
 */
-Bird.prototype.flock = function(boids) {
+exports.THREE.Bird.prototype.flock = function(boids) {
     
     this.boid.flock(boids);
     
 }
 
-Bird.prototype.wrap = function(width, height, depth) {
+exports.THREE.Bird.prototype.wrap = function(width, height, depth) {
     
     this.boid.wrap(width, height, depth);
     
 }
 
-Bird.prototype.bounce = function(width, height, depth) {
+exports.THREE.Bird.prototype.bounce = function(width, height, depth) {
     
     this.boid.bounce(width, height, depth);
     
 }
 
-Bird.prototype.inSight = function(target) {
+exports.THREE.Bird.prototype.inSight = function(target) {
     return this.boid.inSight(target);
 }
 
-Bird.prototype.update = function() {
+exports.THREE.Bird.prototype.update = function() {
     
     this.boid.update();
     // this.boid.wrap(500, 500, 400);
@@ -93,7 +93,7 @@ Bird.prototype.update = function() {
 /*
     private
 */
-Bird.prototype.flap = function() {
+exports.THREE.Bird.prototype.flap = function() {
     
     this.rotation.y = Math.atan2(-this.boid.velocity.z, this.boid.velocity.x);
     this.rotation.z = Math.asin(this.boid.velocity.y / this.boid.velocity.length());
