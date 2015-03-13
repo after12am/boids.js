@@ -36,7 +36,7 @@ $(function() {
     // scene.fog = new THREE.Fog(0x646464, 1, $('#main').width());
     
     for (var i = 0; i < bird_num; i++) {
-        birds.push(new Bird());
+        birds.push(new boids.THREE.Bird());
         birds[i].boid.position.x = Math.random() * $('#main').width()  - $('#main').width()  / 2;
         birds[i].boid.position.y = Math.random() * $('#main').height() - $('#main').height() / 2;
         birds[i].boid.position.z = Math.random() * $('#main').width()  - $('#main').width()  / 2;

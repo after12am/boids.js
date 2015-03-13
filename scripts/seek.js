@@ -38,7 +38,7 @@ $(function() {
     camera = new THREE.PerspectiveCamera(75, $('#main').width() / $('#main').height(), 1, 10000);
     camera.position.z = 100;
     
-    bird = new Bird();
+    bird = new boids.THREE.Bird();
     target = new boids.Vector3();
     
     scene = new THREE.Scene();
