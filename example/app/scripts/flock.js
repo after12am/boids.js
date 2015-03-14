@@ -11,10 +11,11 @@ function resize() {
 function animate() {
     
     requestAnimationFrame(animate);
-    render();
+    update();
+    renderer.render(scene, camera);
 }
 
-function render() {
+function update() {
     
     for (var i = 0; i < bird_num; i++) {
         birds[i].flock(birds.map(function(item) { return item.behavior; }));
@@ -22,7 +23,6 @@ function render() {
         birds[i].update();
     }
     
-    renderer.render(scene, camera);
 }
 
 $(function() {

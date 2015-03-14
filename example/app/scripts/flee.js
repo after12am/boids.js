@@ -11,11 +11,12 @@ function resize() {
 function animate() {
     
     requestAnimationFrame(animate);
-    render();
+    update();
+    renderer.render(scene, camera);
     
 }
 
-function render() {
+function update() {
     
     birdA.seek(birdB.behavior.position);
     birdA.flee(birdC.behavior.position);
@@ -44,8 +45,6 @@ function render() {
     birdA.update();
     birdB.update();
     birdC.update();
-    
-    renderer.render(scene, camera);
     
 }
 

@@ -10,11 +10,12 @@ function resize() {
 function animate() {
     
     requestAnimationFrame( animate );
-    render();
+    update();
+    renderer.render(scene, camera);
     
 }
 
-function render() {
+function update() {
     
     if (bird.inSight(target)) {
         target = new boids.Vector3(
@@ -26,8 +27,6 @@ function render() {
     
     bird.seek(target);
     bird.update();
-    
-    renderer.render(scene, camera);
     
 }
 
