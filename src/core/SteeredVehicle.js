@@ -12,7 +12,6 @@ exports.SteeredVehicle = function(x, y, z) {
     this.wanderRange = 10.0;
     this.pathIndex = 0;
     this.pathThreshold = 20.0;
-    this.pathLoop = false;
     this.inSightDist = 120.0;
     this.tooCloseDist = 20.0;
     
@@ -133,17 +132,19 @@ exports.SteeredVehicle.prototype.evade = function(/* BOIDS.Vehicle */target)
     this.flee(predictedTarget);
 };
 
-exports.SteeredVehicle.prototype.patrol = function(/* Array */paths) {
+exports.SteeredVehicle.prototype.patrol = function(/* Array */paths, loop) {
+    
+    loop = loop || false;
     
     var isLast = this.pathIndex >= paths.length - 1;
     
     if (this.position.distanceTo(paths[this.pathIndex]) < this.pathThreshold)
     {
-        if (isLast && this.pathLoop) this.pathIndex = 0;
+        if (isLast && loop) this.pathIndex = 0;
         else if (!isLast) this.pathIndex++;
     }
     
-    if (isLast && !this.pathLoop) this.arrive(paths[this.pathIndex]);
+    if (isLast && !loop) this.arrive(paths[this.pathIndex]);
     else this.seek(paths[this.pathIndex]);
 };
 

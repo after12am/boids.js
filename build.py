@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-version = '1.2.4'
+version = '1.2.5'
 module = 'boids'
 input_path = 'src/'
 output_path = 'build/boids.js'

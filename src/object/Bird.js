@@ -69,6 +69,16 @@ exports.THREE.Bird.prototype.arrive = function(target) {
 }
 
 /*
+  @param paths array
+  @param loop boolean
+*/
+exports.THREE.Bird.prototype.patrol = function(paths, loop) {
+    
+    this.behavior.patrol(paths, loop);
+    
+}
+
+/*
   @param target boids.Vector3
 */
 exports.THREE.Bird.prototype.tooClose = function(target) {
