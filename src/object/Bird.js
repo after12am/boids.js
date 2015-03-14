@@ -34,23 +34,19 @@ exports.THREE.Bird = function () {
     
     this.phase = Math.floor(Math.random() * 62.83);
     
-    this.boid = new boids.SteeredVehicle(0, 0, 0);
-    this.boid.maxForce = .15;
+    this.behavior = new boids.SteeredVehicle(0, 0, 0);
+    this.behavior.maxForce = .15;
     
 }
 
 exports.THREE.Bird.prototype = Object.create(THREE.Mesh.prototype);
-
-exports.THREE.Bird.prototype.behavior = function() {
-    return this.boid;
-}
 
 /*
   @param target boids.Vector3
 */
 exports.THREE.Bird.prototype.seek = function(target) {
     
-    this.boid.seek(target);
+    this.behavior.seek(target);
     
 }
 
@@ -59,7 +55,7 @@ exports.THREE.Bird.prototype.seek = function(target) {
 */
 exports.THREE.Bird.prototype.flee = function(target) {
     
-    this.boid.flee(target);
+    this.behavior.flee(target);
     
 }
 
@@ -68,7 +64,7 @@ exports.THREE.Bird.prototype.flee = function(target) {
 */
 exports.THREE.Bird.prototype.arrive = function(target) {
     
-    this.boid.arrive(target);
+    this.behavior.arrive(target);
     
 }
 
@@ -77,7 +73,7 @@ exports.THREE.Bird.prototype.arrive = function(target) {
 */
 exports.THREE.Bird.prototype.tooClose = function(target) {
     
-    this.boid.tooClose(target);
+    this.behavior.tooClose(target);
     
 }
 
@@ -86,35 +82,35 @@ exports.THREE.Bird.prototype.tooClose = function(target) {
 */
 exports.THREE.Bird.prototype.flock = function(boids) {
     
-    this.boid.flock(boids);
+    this.behavior.flock(boids);
     
 }
 
 exports.THREE.Bird.prototype.wrap = function(width, height, depth) {
     
-    this.boid.wrap(width, height, depth);
+    this.behavior.wrap(width, height, depth);
     
 }
 
 exports.THREE.Bird.prototype.bounce = function(width, height, depth) {
     
-    this.boid.bounce(width, height, depth);
+    this.behavior.bounce(width, height, depth);
     
 }
 
 exports.THREE.Bird.prototype.inSight = function(target) {
-    return this.boid.inSight(target);
+    return this.behavior.inSight(target);
 }
 
 exports.THREE.Bird.prototype.update = function() {
     
-    this.boid.update();
-    // this.boid.wrap(500, 500, 400);
+    this.behavior.update();
+    // this.behavior.wrap(500, 500, 400);
     this.flap();
     
-    this.position.x = this.boid.position.x;
-    this.position.y = this.boid.position.y;
-    this.position.z = this.boid.position.z;
+    this.position.x = this.behavior.position.x;
+    this.position.y = this.behavior.position.y;
+    this.position.z = this.behavior.position.z;
 }
 
 /*
@@ -122,8 +118,8 @@ exports.THREE.Bird.prototype.update = function() {
 */
 exports.THREE.Bird.prototype.flap = function() {
     
-    this.rotation.y = Math.atan2(-this.boid.velocity.z, this.boid.velocity.x);
-    this.rotation.z = Math.asin(this.boid.velocity.y / this.boid.velocity.length());
+    this.rotation.y = Math.atan2(-this.behavior.velocity.z, this.behavior.velocity.x);
+    this.rotation.z = Math.asin(this.behavior.velocity.y / this.behavior.velocity.length());
 
     this.phase = (this.phase + (Math.max(0, this.rotation.z) + 0.1)) % 62.83;
     this.geometry.verticesNeedUpdate = true;
