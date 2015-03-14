@@ -6,37 +6,6 @@ designed by [Craig Reynolds](http://www.red3d.com/cwr/boids/) in 1986. This mode
 which are separation, alignment and cohesion.
 
 <img src="https://cloud.githubusercontent.com/assets/678921/6096668/0ae60406-afe2-11e4-95e9-dc4d1febc115.png" width="100%">
-## Usage
-
-Here is a very basic example.
-
-```html
-<script src="boids.js"></script>
-<script>
-
-window.onload = function() {
-
-  var v = new boids.SteeredVehicle( -200, 0, 0 );
-  var target = new boids.Vector3( 200, 0, 0 );
-
-  function animate() {
-    
-    setTimeout(animate, 1000 / 30);
-    update();
-  }
-
-  function update() {
-
-    v.seek(target);
-    v.update();
-    console.log(v.position.x, v.position.y, v.position.z);
-  }
-
-  animate();
-}
-  
-</script>
-```
 
 ## License
 
