@@ -7,6 +7,16 @@ which are separation, alignment and cohesion.
 
 <img src="https://cloud.githubusercontent.com/assets/678921/6096668/0ae60406-afe2-11e4-95e9-dc4d1febc115.png" width="100%">
 
+## Example
+
+Since using Grunt in the development environment, run the following command in your new terminal and visit at `http://localhost:9000/`. 
+
+```
+$ cd /path/to/boids.js/example
+$ npm install; bower install
+$ grunt serve
+```
+
 ## License
 
 Copyright (c) 2012-2015 Satoshi Okami. See the LICENSE file for license rights and limitations (MIT).
