@@ -1,5 +1,12 @@
 var camera, scene, renderer;
-var bird, target;
+var bird;
+
+var paths = [
+    new boids.Vector3( 30,  10, -30), 
+    new boids.Vector3(-30,  10, -30), 
+    new boids.Vector3(-30, -10,  30),
+    new boids.Vector3( 30, -10,  30)
+];
 
 function resize() {
     
@@ -17,15 +24,7 @@ function animate() {
 
 function update() {
     
-    if (bird.inSight(target)) {
-        target = new boids.Vector3(
-            Math.random() * $('#main').width()  / 3 - $('#main').width()  / 6,
-            Math.random() * $('#main').height() / 3 - $('#main').height() / 6,
-            Math.random() * $('#main').width()  / 3 - $('#main').width()  / 6
-        );
-    }
-    
-    bird.seek(target);
+    bird.patrol(paths, true);
     bird.update();
     
 }
@@ -40,10 +39,10 @@ $(function() {
     }
     
     camera = new THREE.PerspectiveCamera(75, $('#main').width() / $('#main').height(), 1, 10000);
-    camera.position.z = 100;
+    camera.position.z = 120;
     
     bird = new boids.THREE.Bird();
-    target = new boids.Vector3();
+    bird.behavior.maxForce = .1;
     
     scene = new THREE.Scene();
     scene.add(bird);

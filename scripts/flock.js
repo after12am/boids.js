@@ -2,21 +2,27 @@ var camera, scene, renderer;
 var birds = [];
 var bird_num = 40;
 
+function resize() {
+    
+    renderer.setSize($('#main').width(), $('#main').height());
+    
+}
+
 function animate() {
     
     requestAnimationFrame(animate);
-    render();
+    update();
+    renderer.render(scene, camera);
 }
 
-function render() {
+function update() {
     
     for (var i = 0; i < bird_num; i++) {
-        birds[i].flock(birds.map(function(item) { return item.behavior(); }));
+        birds[i].flock(birds.map(function(item) { return item.behavior; }));
         birds[i].bounce($('#main').width(), $('#main').height(), 1000);
         birds[i].update();
     }
     
-    renderer.render(scene, camera);
 }
 
 $(function() {
@@ -37,20 +43,21 @@ $(function() {
     
     for (var i = 0; i < bird_num; i++) {
         birds.push(new boids.THREE.Bird());
-        birds[i].boid.position.x = Math.random() * $('#main').width()  - $('#main').width()  / 2;
-        birds[i].boid.position.y = Math.random() * $('#main').height() - $('#main').height() / 2;
-        birds[i].boid.position.z = Math.random() * $('#main').width()  - $('#main').width()  / 2;
-        birds[i].boid.velocity.x = Math.random() * 4 - 2;
-        birds[i].boid.velocity.y = Math.random() * 4 - 2;
-        birds[i].boid.velocity.z = Math.random() * 4 - 2;
-        birds[i].boid.maxForce   = Math.random() * .12;
+        birds[i].behavior.position.x = Math.random() * $('#main').width()  - $('#main').width()  / 2;
+        birds[i].behavior.position.y = Math.random() * $('#main').height() - $('#main').height() / 2;
+        birds[i].behavior.position.z = Math.random() * $('#main').width()  - $('#main').width()  / 2;
+        birds[i].behavior.velocity.x = Math.random() * 4 - 2;
+        birds[i].behavior.velocity.y = Math.random() * 4 - 2;
+        birds[i].behavior.velocity.z = Math.random() * 4 - 2;
+        birds[i].behavior.maxForce   = Math.random() * .12;
         scene.add(birds[i]);
     }
     
-    renderer.setSize($('#main').width(), $('#main').height());
     renderer.setClearColor(new THREE.Color(0xfff9f4));
+    resize();
     
     $('#main').append(renderer.domElement)
+    $(window).resize(resize);
     
     animate();
     

@@ -6,7 +6,7 @@
 -->
 <html>
     <head>
-        <title>boids.js | flee example</title>
+        <title>boids.js | seek example</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="description" content="boids.js simulates bird flock and fish school consists of three simple rules." />
         <meta name="keywords" content="boids.js,boids,javascript,js,simulation,library" />
@@ -32,9 +32,9 @@
                     </header>
                     <nav id="nav">
                         <ul>
-                            <li><a href="/">seek</a></li>
+                            <li><a class="active">seek</a></li>
                             <li><a href="arrive.html">arrive</a></li>
-                            <li><a class="active">flee</a></li>
+                            <li><a href="flee.html">flee</a></li>
                             <li><a href="wander.html">wander</a></li>
                             <li><a href="patrol.html">patrol</a></li>
                             <li><a href="flock.html">flock</a></li>
@@ -59,6 +59,44 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="scripts/three.min.js"></script>
         <script src="scripts/boids.js"></script>
-        <script src="scripts/flee.js"></script>
-    </body>
+<script type="text/javascript">
+
+$(function() {
+    
+    var camera, scene, renderer, bird;
+    var paths = [new boids.Vector3( 20,  20, -120), new boids.Vector3(-20,  -20, -120)];
+    
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setClearColor(new THREE.Color(0xfff9f4));
+    renderer.setSize($('#main').width(), $('#main').height());
+    
+    camera = new THREE.PerspectiveCamera(75, $('#main').width() / $('#main').height(), 1, 10000);
+    
+    scene = new THREE.Scene();
+    
+    function animate() {
+        
+        requestAnimationFrame(animate);
+        
+        bird.patrol(paths, true);
+        bird.update();
+        
+        renderer.render(scene, camera);
+
+    }
+    
+    bird = new boids.THREE.Bird();
+    bird.behavior.maxForce = .1;
+    scene.add(bird);
+    
+    
+    
+    $('#main').append(renderer.domElement)
+    
+    animate();
+    
+});
+
+</script>
+</body>
 </html>

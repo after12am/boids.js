@@ -1,34 +1,51 @@
 var camera, scene, renderer;
-var predator;
-var birds = [];
-var bird_num = 1;
+var birdA, birdB, birdC;
+var origin = new boids.Vector3(0, 0, 0);
+
+function resize() {
+    
+    renderer.setSize($('#main').width(), $('#main').height());
+    
+}
 
 function animate() {
     
     requestAnimationFrame(animate);
-    render();
+    update();
+    renderer.render(scene, camera);
+    
 }
 
-function render() {
+function update() {
     
+    birdA.seek(birdB.behavior.position);
+    birdA.flee(birdC.behavior.position);
+    birdA.seek(origin);
     
-    
-    for (var i = 0; i < bird_num; i++) {
-        if (birds[i].tooClose(predator.boid.position)) {
-            birds[i].flee(predator.boid.position);
-        } else {
-            birds[i].flock(birds.map(function(item) { return item.behavior(); }));
-        }
-        
-        
-        birds[i].bounce($('#main').width() / 4, $('#main').height() / 4, 1000 / 4);
-        birds[i].update();
+    if (birdA.inSight(origin)) {
+        birdA.flee(origin);
     }
     
-    predator.seek(birds[0].boid.position);
-    predator.update();
+    birdB.seek(birdC.behavior.position);
+    birdB.flee(birdA.behavior.position);
+    birdB.seek(origin);
     
-    renderer.render(scene, camera);
+    if (birdB.inSight(origin)) {
+        birdB.flee(origin);
+    }
+    
+    birdC.seek(birdA.behavior.position);
+    birdC.flee(birdB.behavior.position);
+    birdC.seek(origin);
+    
+    if (birdC.inSight(origin)) {
+        birdC.flee(origin);
+    }
+    
+    birdA.update();
+    birdB.update();
+    birdC.update();
+    
 }
 
 $(function() {
@@ -41,35 +58,45 @@ $(function() {
     }
     
     camera = new THREE.PerspectiveCamera(75, $('#main').width() / $('#main').height(), 1, 1000);
-    camera.position.z = 200;
+    camera.position.z = 250;
     
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x646464, 0.15);
-    // scene.fog = new THREE.Fog(0x646464, 1, $('#main').width());
-    
-    for (var i = 0; i < bird_num; i++) {
-        birds.push(new boids.THREE.Bird());
-        // birds[i].boid.position.x = Math.random() * $('#main').width()  - $('#main').width()  / 2;
-        // birds[i].boid.position.y = Math.random() * $('#main').height() - $('#main').height() / 2;
-        // birds[i].boid.position.z = Math.random() * $('#main').width()  - $('#main').width()  / 2;
-        birds[i].boid.velocity.x = Math.random() * 4 - .5;
-        birds[i].boid.velocity.y = Math.random() * 4 - .5;
-        birds[i].boid.velocity.z = Math.random() * 4 - .5;
-        // birds[i].boid.maxForce   = .18;
-        scene.add(birds[i]);
-    }
-    
-    predator = new boids.THREE.Bird(0xc61550)
-    predator.boid.velocity.x = 6;
-    predator.boid.velocity.y = 6;
-    predator.boid.velocity.z = 6;
-    predator.boid.maxForce   = .3;
-    scene.add(predator);
-    
-    renderer.setSize($('#main').width(), $('#main').height());
     renderer.setClearColor(new THREE.Color(0xfff9f4));
+    resize();
     
-    $('#main').append(renderer.domElement)
+    birdA = new boids.THREE.Bird()
+    birdA.behavior.velocity.x = 1;
+    birdA.behavior.velocity.y = 1;
+    birdA.behavior.velocity.z = 1;
+    birdA.behavior.position.x = 200;
+    birdA.behavior.position.y = 200;
+    birdA.behavior.position.z = 0;
+    birdA.behavior.maxForce = .1
+    scene.add(birdA);
+    
+    birdB = new boids.THREE.Bird();
+    birdB.behavior.velocity.x = 1;
+    birdB.behavior.velocity.y = 1;
+    birdB.behavior.velocity.z = 1;
+    birdB.behavior.position.x = 400;
+    birdB.behavior.position.y = -200;
+    birdB.behavior.position.z = 0;
+    birdB.behavior.maxForce = .1
+    scene.add(birdB);
+    
+    birdC = new boids.THREE.Bird();
+    birdC.behavior.velocity.x = 1;
+    birdC.behavior.velocity.y = 1;
+    birdC.behavior.velocity.z = 1;
+    birdC.behavior.position.x = -300;
+    birdC.behavior.position.y = 260;
+    birdC.behavior.position.z = 0;
+    birdC.behavior.maxForce = .1
+    scene.add(birdC);
+    
+    $('#main').append(renderer.domElement);
+    $(window).resize(resize);
     
     animate();
     
