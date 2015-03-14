@@ -98,6 +98,12 @@ exports.THREE.Bird.prototype.bounce = function(width, height, depth) {
     
 }
 
+exports.THREE.Bird.prototype.wander = function() {
+    
+    this.behavior.wander();
+    
+}
+
 exports.THREE.Bird.prototype.inSight = function(target) {
     return this.behavior.inSight(target);
 }
