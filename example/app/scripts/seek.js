@@ -1,6 +1,11 @@
 var camera, scene, renderer;
 var bird, target;
 
+function resize() {
+    
+    renderer.setSize($('#main').width(), $('#main').height());
+    
+}
 
 function animate() {
     
@@ -44,10 +49,11 @@ $(function() {
     scene = new THREE.Scene();
     scene.add(bird);
     
-    renderer.setSize($('#main').width(), $('#main').height());
     renderer.setClearColor(new THREE.Color(0xfff9f4));
+    resize();
     
     $('#main').append(renderer.domElement)
+    $(window).resize(resize);
     
     animate();
     

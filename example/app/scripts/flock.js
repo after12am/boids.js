@@ -2,6 +2,12 @@ var camera, scene, renderer;
 var birds = [];
 var bird_num = 40;
 
+function resize() {
+    
+    renderer.setSize($('#main').width(), $('#main').height());
+    
+}
+
 function animate() {
     
     requestAnimationFrame(animate);
@@ -47,10 +53,11 @@ $(function() {
         scene.add(birds[i]);
     }
     
-    renderer.setSize($('#main').width(), $('#main').height());
     renderer.setClearColor(new THREE.Color(0xfff9f4));
+    resize();
     
     $('#main').append(renderer.domElement)
+    $(window).resize(resize);
     
     animate();
     

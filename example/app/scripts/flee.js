@@ -2,6 +2,12 @@ var camera, scene, renderer;
 var birdA, birdB, birdC;
 var origin = new boids.Vector3(0, 0, 0);
 
+function resize() {
+    
+    renderer.setSize($('#main').width(), $('#main').height());
+    
+}
+
 function animate() {
     
     requestAnimationFrame(animate);
@@ -57,8 +63,8 @@ $(function() {
     
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x646464, 0.15);
-    renderer.setSize($('#main').width(), $('#main').height());
     renderer.setClearColor(new THREE.Color(0xfff9f4));
+    resize();
     
     birdA = new boids.THREE.Bird()
     birdA.behavior.velocity.x = 1;
@@ -91,6 +97,7 @@ $(function() {
     scene.add(birdC);
     
     $('#main').append(renderer.domElement);
+    $(window).resize(resize);
     
     animate();
     
