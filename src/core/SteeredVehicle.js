@@ -89,7 +89,7 @@ exports.SteeredVehicle.prototype.flee = function(/* BOIDS.Vector3 */target)
 
 exports.SteeredVehicle.prototype.arrive = function(/* BOIDS.Vector3 */target) {
     
-    var arrivalThreshold = this.maxSpeed * 10;
+    var arrivalThreshold = this.maxSpeed * 25;
     var desiredVelocity = new exports.Vector3();
     desiredVelocity.set( target.x, target.y, target.z );
     desiredVelocity.subSelf( this.position );
