@@ -1,8 +1,10 @@
 exports.THREE.Bird = function (options) {
 
     options = options || {};
-    if (options.color == undefined) options.color = 0x646464;
-
+    options.color = (options.color == undefined) ? 0x646464 : options.color;
+    options.position = (options.position == undefined) ?
+      new exports.Vector3( 0, 0, 0 ) : options.position;
+    
     function v(x, y, z) {
         geometry.vertices.push(new THREE.Vector3(x, y, z));
     }
@@ -32,14 +34,19 @@ exports.THREE.Bird = function (options) {
 
     f3( 4, 7, 6 ); // right wing
     f3( 5, 6, 7 ); //　left wing
-    
+
     THREE.Mesh.call(this, geometry, material);
-    
+
     this.phase = Math.floor(Math.random() * 62.83);
-    
-    this.behavior = new boids.SteeredVehicle(0, 0, 0);
+
+    this.behavior = new exports.SteeredVehicle(
+      options.position.x,
+      options.position.y,
+      options.position.z
+    );
+
     this.behavior.maxForce = .15;
-    
+
 }
 
 exports.THREE.Bird.prototype = Object.create(THREE.Mesh.prototype);
