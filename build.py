@@ -23,7 +23,7 @@ header = '''/*
  * boids.js
  * https://github.com/after12am/boids.js
  *
- * Copyright 2012-2015 Satoshi Okami
+ * Copyright 2012-2016 Satoshi Okami
  * Released under the MIT license
  */
 '''

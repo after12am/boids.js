@@ -2,7 +2,7 @@
  * boids.js
  * https://github.com/after12am/boids.js
  *
- * Copyright 2012-2015 Satoshi Okami
+ * Copyright 2012-2016 Satoshi Okami
  * Released under the MIT license
  */
 var boids=function(){var c={VERSION:"1.2.6",THREE:{},Vector3:function(a,b,c){this.x=a||0;this.y=b||0;this.z=c||0}};c.Vector3.prototype={constructor:c.Vector3,set:function(a,b,c){this.x=a;this.y=b;this.z=c;return this},setX:function(a){this.x=a;return this},setY:function(a){this.y=a;return this},setZ:function(a){this.z=a;return this},copy:function(a){this.x=a.x;this.y=a.y;this.z=a.z;return this},clone:function(){return new c.Vector3(this.x,this.y,this.z)},add:function(a,b){this.x=a.x+b.x;this.y=a.y+
