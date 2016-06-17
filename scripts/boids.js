@@ -5,23 +5,878 @@
  * Copyright 2012-2016 Satoshi Okami
  * Released under the MIT license
  */
-var boids=function(){var c={VERSION:"1.2.6",THREE:{},Vector3:function(a,b,c){this.x=a||0;this.y=b||0;this.z=c||0}};c.Vector3.prototype={constructor:c.Vector3,set:function(a,b,c){this.x=a;this.y=b;this.z=c;return this},setX:function(a){this.x=a;return this},setY:function(a){this.y=a;return this},setZ:function(a){this.z=a;return this},copy:function(a){this.x=a.x;this.y=a.y;this.z=a.z;return this},clone:function(){return new c.Vector3(this.x,this.y,this.z)},add:function(a,b){this.x=a.x+b.x;this.y=a.y+
-b.y;this.z=a.z+b.z;return this},addSelf:function(a){this.x+=a.x;this.y+=a.y;this.z+=a.z;return this},addScalar:function(a){this.x+=a;this.y+=a;this.z+=a;return this},sub:function(a,b){this.x=a.x-b.x;this.y=a.y-b.y;this.z=a.z-b.z;return this},subSelf:function(a){this.x-=a.x;this.y-=a.y;this.z-=a.z;return this},multiply:function(a,b){this.x=a.x*b.x;this.y=a.y*b.y;this.z=a.z*b.z;return this},multiplySelf:function(a){this.x*=a.x;this.y*=a.y;this.z*=a.z;return this},multiplyScalar:function(a){this.x*=
-a;this.y*=a;this.z*=a;return this},divideSelf:function(a){this.x/=a.x;this.y/=a.y;this.z/=a.z;return this},divideScalar:function(a){a?(this.x/=a,this.y/=a,this.z/=a):this.z=this.y=this.x=0;return this},negate:function(){return this.multiplyScalar(-1)},dot:function(a){return this.x*a.x+this.y*a.y+this.z*a.z},lengthSq:function(){return this.x*this.x+this.y*this.y+this.z*this.z},length:function(){return Math.sqrt(this.lengthSq())},lengthManhattan:function(){return this.x+this.y+this.z},normalize:function(){return this.divideScalar(this.length())},
-setLength:function(a){return this.normalize().multiplyScalar(a)},cross:function(a,b){this.x=a.y*b.z-a.z*b.y;this.y=a.z*b.x-a.x*b.z;this.z=a.x*b.y-a.y*b.x;return this},crossSelf:function(a){var b=this.x,c=this.y,e=this.z;this.x=c*a.z-e*a.y;this.y=e*a.x-b*a.z;this.z=b*a.y-c*a.x;return this},distanceTo:function(a){return Math.sqrt(this.distanceToSquared(a))},distanceToSquared:function(a){return(new c.Vector3).sub(this,a).lengthSq()},setPositionFromMatrix:function(a){this.x=a.n14;this.y=a.n24;this.z=
-a.n34},setRotationFromMatrix:function(a){var b=Math.cos(this.y);this.y=Math.asin(a.n13);1E-5<Math.abs(b)?(this.x=Math.atan2(-a.n23/b,a.n33/b),this.z=Math.atan2(-a.n12/b,a.n11/b)):(this.x=0,this.z=Math.atan2(a.n21,a.n22))},isZero:function(){return 1E-4>this.lengthSq()}};c.Vector3.prototype.limitScalar=function(a){var b=this.lengthSq();b>a*a&&0<b&&(a/=Math.sqrt(b),this.x*=a,this.y*=a,this.z*=a);return this};try{THREE.Vector3.prototype.limitScalar=function(a){var b=this.lengthSq();b>a*a&&0<b&&(a/=Math.sqrt(b),
-this.x*=a,this.y*=a,this.z*=a);return this}}catch(a){}c.nextVehicleId=function(){var a=0;return function(){return a++}}();c.getRandVec=function(){var a=new c.Vector3,b=360*Math.random()*Math.PI/180,d=2*Math.random()*Math.PI;a.x=Math.sin(b)*Math.cos(d);a.y=Math.sin(b)*Math.sin(d);a.z=Math.cos(b);return a};c.Vehicle=function(a,b,d){this.id=c.nextVehicleId();this.mass=1;this.maxSpeed=4;this.maxTrailSize=10;this.position=new c.Vector3(a,b,d);this.velocity=new c.Vector3;this.trails=[]};c.Vehicle.prototype.update=
-function(){this.velocity.limitScalar(this.maxSpeed);this.position.addSelf(this.velocity);this.trails.push(this.position.clone());this.trails.length>=this.maxTrailSize&&this.trails.shift()};c.Vehicle.prototype.bounce=function(a,b,c){this.position.x>.5*a?(this.position.x=.5*a,this.velocity.x*=-1):this.position.x<.5*-a&&(this.position.x=.5*-a,this.velocity.x*=-1);this.position.y>.5*b?(this.position.y=.5*b,this.velocity.y*=-1):this.position.y<.5*-b&&(this.position.y=.5*-b,this.velocity.y*=-1);this.position.z>
-.5*c?(this.position.z=.5*c,this.velocity.z*=-1):this.position.z<.5*-c&&(this.position.z=.5*-c,this.velocity.z*=-1)};c.Vehicle.prototype.wrap=function(a,b,c){this.position.x>.5*a?this.position.x=.5*-a:this.position.x<.5*-a&&(this.position.x=.5*a);this.position.y>.5*b?this.position.y=.5*-b:this.position.y<.5*-b&&(this.position.y=.5*b);this.position.z>.5*c?this.position.z=.5*-c:this.position.z<.5*-c&&(this.position.z=.5*c)};c.SteeredVehicle=function(a,b,d){var e=this,f=360*Math.random(),h=360*Math.random();
-this.steeringForce=new c.Vector3;this.maxForce=1;this.wanderDistance=10;this.wanderRadius=5;this.wanderRange=10;this.pathIndex=0;this.pathThreshold=20;this.inSightDist=120;this.tooCloseDist=20;this.wander=function(){var a=new c.Vector3;new c.Vector3;a.set(e.velocity);a.normalize();a.multiplyScalar(e.wanderDistance);var b=e.wanderRadius,d=f*Math.PI/180,k=h*Math.PI/180,g=new c.Vector3;g.x=b*Math.sin(d)*Math.cos(k);g.y=b*Math.sin(d)*Math.sin(k);g.z=b*Math.cos(d);f+=Math.random()*e.wanderRange-.5*e.wanderRange;
-h+=Math.random()*e.wanderRange-.5*e.wanderRange;e.steeringForce.addSelf(a.addSelf(g))};c.Vehicle.call(this,a,b,d)};c.SteeredVehicle.prototype=new c.Vehicle;c.SteeredVehicle.prototype.addForce=function(a){"object"==typeof a?this.steeringForce.addSelf(a):"number"==typeof a&&this.steeringForce.addScalar(a)};c.SteeredVehicle.prototype.Vehicle_update=c.SteeredVehicle.prototype.update;c.SteeredVehicle.prototype.update=function(){this.steeringForce.limitScalar(this.maxForce);this.steeringForce.multiplyScalar(1/
-this.mass);this.velocity.addSelf(this.steeringForce);this.Vehicle_update();this.steeringForce.set(0,0,0)};c.SteeredVehicle.prototype.seek=function(a){var b=new c.Vector3;b.set(a.x,a.y,a.z);b.subSelf(this.position);b.normalize();b.multiplyScalar(this.maxSpeed);this.steeringForce.addSelf(b.subSelf(this.velocity))};c.SteeredVehicle.prototype.flee=function(a){var b=new c.Vector3;b.set(a.x,a.y,a.z);b.subSelf(this.position);b.normalize();b.multiplyScalar(this.maxSpeed);this.steeringForce.subSelf(b.subSelf(this.velocity))};
-c.SteeredVehicle.prototype.arrive=function(a){var b=25*this.maxSpeed,d=new c.Vector3;d.set(a.x,a.y,a.z);d.subSelf(this.position);d.normalize();a=this.position.distanceTo(a);a>b?d.multiplyScalar(this.maxSpeed):d.multiplyScalar(this.maxSpeed*a/b);this.steeringForce.addSelf(d.subSelf(this.velocity))};c.SteeredVehicle.prototype.pursue=function(a){var b=this.position.distanceTo(a.position)/this.maxSpeed,d=new c.Vector3;d.set(a.velocity.x,a.velocity.y,a.velocity.z);d.multiplyScalar(b);b=new c.Vector3;b.set(a.position.x,
-a.position.y,a.position.z);b.addSelf(d);this.seek(b)};c.SteeredVehicle.prototype.evade=function(a){var b=this.position.distanceTo(a.position)/this.maxSpeed,d=new c.Vector3;d.set(a.velocity.x,a.velocity.y,a.velocity.z);d.multiplyScalar(b);b=new c.Vector3;b.set(a.position.x,a.position.y,a.position.z);b.subSelf(d);this.flee(b)};c.SteeredVehicle.prototype.patrol=function(a,b){b=b||!1;var c=this.pathIndex>=a.length-1;this.position.distanceTo(a[this.pathIndex])<this.pathThreshold&&(c&&b?this.pathIndex=
-0:c||this.pathIndex++);c&&!b?this.arrive(a[this.pathIndex]):this.seek(a[this.pathIndex])};c.SteeredVehicle.prototype.flock=function(a){var b=new c.Vector3,d=new c.Vector3,e=0;b.set(this.velocity.x,this.velocity.y,this.velocity.z);for(var f=0;f<a.length;f++)a[f].id!=this.id&&this.inSight(a[f].position)&&(b.addSelf(a[f].velocity),d.addSelf(a[f].position),e++,this.tooClose(a[f].position)&&this.flee(a[f].position));0<e&&(d.multiplyScalar(1/e),this.seek(d),b.multiplyScalar(1/e),this.steeringForce.addSelf(b.subSelf(this.velocity)))};
-c.SteeredVehicle.prototype.randomWalk=function(){var a=c.getRandVec();a.normalize();a.multiplyScalar(this.maxSpeed);this.steeringForce.addSelf(a.subSelf(this.velocity))};c.SteeredVehicle.prototype.inSight=function(a){if(this.position.distanceTo(a)>this.inSightDist)return!1;var b=new c.Vector3;b.set(this.velocity.x,this.velocity.y,this.velocity.z);b.normalize();var d=new c.Vector3;d.set(a);d.subSelf(this.position);return 0>d.dot(b)?!1:!0};c.SteeredVehicle.prototype.tooClose=function(a){return this.position.distanceTo(a)<
-this.tooCloseDist};c.BiologicalVehicle=function(a,b,d){var e=0;this.remainingLifePer=this.lifeSpan=1;this.aging=function(a){e+=a;this.remainingLifePer=Math.max(0,Math.min(1,(this.lifeSpan-e)/this.lifeSpan))};this.isDead=function(){return e>this.lifeSpan};c.SteeredVehicle.call(this,a,b,d)};c.BiologicalVehicle.prototype=new c.SteeredVehicle;c.THREE.Bird=function(a){function b(a,b,c){e.vertices.push(new THREE.Vector3(a,b,c))}function c(a,b,d){e.faces.push(new THREE.Face3(a,b,d))}a=a||{};void 0==a.color&&
-(a.color=6579300);var e=new THREE.Geometry;a=new THREE.MeshBasicMaterial({color:new THREE.Color(a.color),side:THREE.DoubleSide});b(5,0,0);b(-5,-2,1);b(-5,0,0);b(-5,-2,-1);b(0,2,-6);b(0,2,6);b(2,0,0);b(-3,0,0);c(0,2,1);c(0,3,2);c(4,7,6);c(5,6,7);THREE.Mesh.call(this,e,a);this.phase=Math.floor(62.83*Math.random());this.behavior=new boids.SteeredVehicle(0,0,0);this.behavior.maxForce=.15};c.THREE.Bird.prototype=Object.create(THREE.Mesh.prototype);c.THREE.Bird.prototype.seek=function(a){this.behavior.seek(a)};
-c.THREE.Bird.prototype.flee=function(a){this.behavior.flee(a)};c.THREE.Bird.prototype.arrive=function(a){this.behavior.arrive(a)};c.THREE.Bird.prototype.patrol=function(a,b){this.behavior.patrol(a,b)};c.THREE.Bird.prototype.tooClose=function(a){this.behavior.tooClose(a)};c.THREE.Bird.prototype.flock=function(a){this.behavior.flock(a)};c.THREE.Bird.prototype.wrap=function(a,b,c){this.behavior.wrap(a,b,c)};c.THREE.Bird.prototype.bounce=function(a,b,c){this.behavior.bounce(a,b,c)};c.THREE.Bird.prototype.wander=
-function(){this.behavior.wander()};c.THREE.Bird.prototype.inSight=function(a){return this.behavior.inSight(a)};c.THREE.Bird.prototype.update=function(a){a=a||{};this.behavior.update();this.flap();this.position.x=this.behavior.position.x;this.position.y=this.behavior.position.y;this.position.z=this.behavior.position.z;void 0!=a.color&&(this.material.color=new THREE.Color(a.color))};c.THREE.Bird.prototype.flap=function(){this.rotation.y=Math.atan2(-this.behavior.velocity.z,this.behavior.velocity.x);
-this.rotation.z=Math.asin(this.behavior.velocity.y/this.behavior.velocity.length());this.phase=(this.phase+(Math.max(0,this.rotation.z)+.1))%62.83;this.geometry.verticesNeedUpdate=!0;this.geometry.vertices[5].y=this.geometry.vertices[4].y=5*Math.sin(this.phase)};return c}();
+var boids = (function() {
+var exports = {VERSION: '1.2.7'};
+
+exports.THREE = {};
+
+// src/core/math/Vector3.js
+// from https://github.com/mrdoob/three.js/
+
+/**
+ * @author mr.doob / http://mrdoob.com/
+ * @author kile / http://kile.stravaganza.org/
+ * @author philogb / http://blog.thejit.org/
+ * @author mikael emtinger / http://gomo.se/
+ * @author egraether / http://egraether.com/
+ */
+
+exports.Vector3 = function ( x, y, z ) {
+
+    this.x = x || 0;
+    this.y = y || 0;
+    this.z = z || 0;
+
+};
+
+
+exports.Vector3.prototype = {
+
+    constructor: exports.Vector3,
+
+    set: function ( x, y, z ) {
+
+        this.x = x;
+        this.y = y;
+        this.z = z;
+
+        return this;
+
+    },
+
+    setX: function ( x ) {
+
+        this.x = x;
+
+        return this;
+
+    },
+
+    setY: function ( y ) {
+
+        this.y = y;
+
+        return this;
+
+    },
+
+    setZ: function ( z ) {
+
+        this.z = z;
+
+        return this;
+
+    },
+
+    copy: function ( v ) {
+
+        this.x = v.x;
+        this.y = v.y;
+        this.z = v.z;
+
+        return this;
+
+    },
+
+    clone: function () {
+
+        return new exports.Vector3( this.x, this.y, this.z );
+
+    },
+
+
+    add: function ( v1, v2 ) {
+
+        this.x = v1.x + v2.x;
+        this.y = v1.y + v2.y;
+        this.z = v1.z + v2.z;
+
+        return this;
+
+    },
+
+    addSelf: function ( v ) {
+
+        this.x += v.x;
+        this.y += v.y;
+        this.z += v.z;
+
+        return this;
+
+    },
+
+    addScalar: function ( s ) {
+
+        this.x += s;
+        this.y += s;
+        this.z += s;
+
+        return this;
+
+    },
+
+    sub: function ( v1, v2 ) {
+
+        this.x = v1.x - v2.x;
+        this.y = v1.y - v2.y;
+        this.z = v1.z - v2.z;
+
+        return this;
+
+    },
+
+    subSelf: function ( v ) {
+
+        this.x -= v.x;
+        this.y -= v.y;
+        this.z -= v.z;
+
+        return this;
+
+    },
+
+    multiply: function ( a, b ) {
+
+        this.x = a.x * b.x;
+        this.y = a.y * b.y;
+        this.z = a.z * b.z;
+
+        return this;
+
+    },
+
+    multiplySelf: function ( v ) {
+
+        this.x *= v.x;
+        this.y *= v.y;
+        this.z *= v.z;
+
+        return this;
+
+    },
+
+    multiplyScalar: function ( s ) {
+
+        this.x *= s;
+        this.y *= s;
+        this.z *= s;
+
+        return this;
+
+    },
+
+    divideSelf: function ( v ) {
+
+        this.x /= v.x;
+        this.y /= v.y;
+        this.z /= v.z;
+
+        return this;
+
+    },
+
+    divideScalar: function ( s ) {
+
+        if ( s ) {
+
+            this.x /= s;
+            this.y /= s;
+            this.z /= s;
+
+        } else {
+
+            this.x = 0;
+            this.y = 0;
+            this.z = 0;
+
+        }
+
+        return this;
+
+    },
+
+
+    negate: function() {
+
+        return this.multiplyScalar( -1 );
+
+    },
+
+    dot: function ( v ) {
+
+        return this.x * v.x + this.y * v.y + this.z * v.z;
+
+    },
+
+    lengthSq: function () {
+
+        return this.x * this.x + this.y * this.y + this.z * this.z;
+
+    },
+
+    length: function () {
+
+        return Math.sqrt( this.lengthSq() );
+
+    },
+
+    lengthManhattan: function () {
+
+        // correct version
+        // return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z );
+
+        return this.x + this.y + this.z;
+
+    },
+
+    normalize: function () {
+
+        return this.divideScalar( this.length() );
+
+    },
+
+    setLength: function ( l ) {
+
+        return this.normalize().multiplyScalar( l );
+
+    },
+
+
+    cross: function ( a, b ) {
+
+        this.x = a.y * b.z - a.z * b.y;
+        this.y = a.z * b.x - a.x * b.z;
+        this.z = a.x * b.y - a.y * b.x;
+
+        return this;
+
+    },
+
+    crossSelf: function ( v ) {
+
+        var x = this.x, y = this.y, z = this.z;
+
+        this.x = y * v.z - z * v.y;
+        this.y = z * v.x - x * v.z;
+        this.z = x * v.y - y * v.x;
+
+        return this;
+
+    },
+
+
+    distanceTo: function ( v ) {
+
+        return Math.sqrt( this.distanceToSquared( v ) );
+
+    },
+
+    distanceToSquared: function ( v ) {
+
+        return new exports.Vector3().sub( this, v ).lengthSq();
+
+    },
+
+
+    setPositionFromMatrix: function ( m ) {
+
+        this.x = m.n14;
+        this.y = m.n24;
+        this.z = m.n34;
+
+    },
+
+    setRotationFromMatrix: function ( m ) {
+
+        var cosY = Math.cos( this.y );
+
+        this.y = Math.asin( m.n13 );
+
+        if ( Math.abs( cosY ) > 0.00001 ) {
+
+            this.x = Math.atan2( - m.n23 / cosY, m.n33 / cosY );
+            this.z = Math.atan2( - m.n12 / cosY, m.n11 / cosY );
+
+        } else {
+
+            this.x = 0;
+            this.z = Math.atan2( m.n21, m.n22 );
+
+        }
+
+    },
+
+    isZero: function () {
+
+        return ( this.lengthSq() < 0.0001 /* almostZero */ );
+
+    }
+
+};
+
+/* EXTEND THREE.Vector3() */
+exports.Vector3.prototype.limitScalar = function( s ) {
+    
+    var lengthSquared = this.lengthSq();
+    
+    if( lengthSquared > s * s && lengthSquared > 0 ) {
+        
+        var ratio = s / Math.sqrt( lengthSquared );
+        this.x *= ratio;
+        this.y *= ratio;
+        this.z *= ratio;
+    }
+    return this;
+};
+// src/boids.js
+/**********************************************************************************
+
+ Copyright (C) 2012 - 2016 satoshi okami
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+ the Software without restriction, including without limitation the rights to
+ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ of the Software, and to permit persons to whom the Software is furnished to do
+ so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+ **********************************************************************************/
+
+/* EXTEND THREE.Vector3 */
+THREE.Vector3.prototype.limitScalar = function( s ) {
+
+    var lengthSquared = this.lengthSq();
+
+    if( lengthSquared > s * s && lengthSquared > 0 ) {
+
+        var ratio = s / Math.sqrt( lengthSquared );
+        this.x *= ratio;
+        this.y *= ratio;
+        this.z *= ratio;
+    }
+    return this;
+};
+
+
+
+/* BOIDS LIBRARY */
+
+exports.nextVehicleId = function() {
+
+    var vid = 0;
+
+    return function() { return vid++; };
+}();
+
+exports.getRandVec = function() {
+
+    var vec = new exports.Vector3();
+    var a1 = (Math.random() * 360 * Math.PI / 180);
+    var a2 = (Math.random() * 2 * Math.PI);
+
+    vec.x = (Math.sin(a1) * Math.cos(a2));
+    vec.y = (Math.sin(a1) * Math.sin(a2));
+    vec.z = (Math.cos(a1));
+
+    return vec;
+};
+
+// src/core/Vehicle.js
+exports.Vehicle = function( x, y, z ) {
+    
+    this.id = exports.nextVehicleId();
+    this.mass = 1.0;
+    this.maxSpeed = 4.0;
+    this.maxTrailSize = 10;
+    this.position = new exports.Vector3( x, y, z );
+    this.velocity = new exports.Vector3();
+    this.trails = [];
+};
+
+exports.Vehicle.prototype.update = function() {
+    
+    this.velocity.limitScalar(this.maxSpeed);
+    this.position.addSelf(this.velocity);
+    this.trails.push(this.position.clone());
+    
+    if (this.trails.length >= this.maxTrailSize) this.trails.shift();
+};
+
+exports.Vehicle.prototype.bounce = function(w, h, d) {
+    
+    if (this.position.x > w * .5)
+    {
+        this.position.x = w * .5;
+        this.velocity.x *= -1;
+    }
+    else if (this.position.x < - w * .5)
+    {
+        this.position.x = - w * .5;
+        this.velocity.x *= -1;
+    }
+    
+    if (this.position.y > h * .5)
+    {
+        this.position.y = h * .5;
+        this.velocity.y *= -1;
+    }
+    else if (this.position.y < - h * .5)
+    {
+        this.position.y = - h * .5;
+        this.velocity.y *= -1;
+    }
+    
+    if (this.position.z > d * .5)
+    {
+        this.position.z = d * .5;
+        this.velocity.z *= -1;
+    }
+    else if (this.position.z < - d * .5)
+    {
+        this.position.z = - d * .5;
+        this.velocity.z *= -1;
+    }
+};
+
+exports.Vehicle.prototype.wrap = function(w, h, d) {
+    
+    if (this.position.x > w * .5)
+    {
+        this.position.x = - w * .5;
+    }
+    else if (this.position.x < - w * .5)
+    {
+        this.position.x = w * .5;
+    }
+    
+    if (this.position.y > h * .5)
+    {
+        this.position.y = - h * .5;
+    }
+    else if (this.position.y < - h * .5)
+    {
+        this.position.y = h * .5;
+    }
+    
+    if (this.position.z > d * .5)
+    {
+        this.position.z = - d * .5;
+    }
+    else if (this.position.z < - d * .5)
+    {
+        this.position.z = d * .5;
+    }
+};
+// src/core/SteeredVehicle.js
+exports.SteeredVehicle = function(x, y, z) {
+    
+    /* private */
+    var that = this;
+    var wanderAngle1 = Math.random() * 360.0;
+    var wanderAngle2 = Math.random() * 360.0;
+    
+    this.steeringForce = new exports.Vector3();
+    this.maxForce = 1.0;
+    this.wanderDistance = 10.0;
+    this.wanderRadius = 5.0;
+    this.wanderRange = 10.0;
+    this.pathIndex = 0;
+    this.pathThreshold = 20.0;
+    this.inSightDist = 120.0;
+    this.tooCloseDist = 20.0;
+    
+    this.wander = function() {
+        
+        function getOffset(r, angle1, angle2) {
+            
+            var a1 = (angle1 * Math.PI / 180);
+            var a2 = (angle2 * Math.PI / 180);
+            
+            var offset = new exports.Vector3();
+            offset.x = (r * Math.sin(a1) * Math.cos(a2));
+            offset.y = (r * Math.sin(a1) * Math.sin(a2));
+            offset.z = (r * Math.cos(a1));
+            
+            return offset;
+        };
+        
+        var center = new exports.Vector3();
+        var offset = new exports.Vector3();
+        
+        center.set(that.velocity);
+        center.normalize();
+        center.multiplyScalar( that.wanderDistance );
+        offset = getOffset(that.wanderRadius, wanderAngle1, wanderAngle2);
+        wanderAngle1 += (Math.random() * that.wanderRange - that.wanderRange * .5);
+        wanderAngle2 += (Math.random() * that.wanderRange - that.wanderRange * .5);
+        that.steeringForce.addSelf( center.addSelf( offset ) );
+    };
+    
+    exports.Vehicle.call(this, x, y, z);
+};
+
+exports.SteeredVehicle.prototype = new exports.Vehicle();
+
+exports.SteeredVehicle.prototype.addForce = function(/* BOIDS.Vector3 */force) {
+    
+    if ( typeof force == "object" ) {
+        this.steeringForce.addSelf( force );
+    } else if (typeof force == "number") {
+        this.steeringForce.addScalar( force );
+    }
+};
+
+exports.SteeredVehicle.prototype.Vehicle_update = exports.SteeredVehicle.prototype.update;
+exports.SteeredVehicle.prototype.update = function() {
+    
+    this.steeringForce.limitScalar( this.maxForce );
+    this.steeringForce.multiplyScalar( 1.0 / this.mass );
+    this.velocity.addSelf( this.steeringForce );
+    this.Vehicle_update();
+    this.steeringForce.set(0, 0, 0);
+};
+
+exports.SteeredVehicle.prototype.seek = function(/* BOIDS.Vector3 */target)
+{
+    var desiredVelocity = new exports.Vector3();
+    desiredVelocity.set( target.x, target.y, target.z );
+    desiredVelocity.subSelf( this.position );
+    desiredVelocity.normalize();
+    desiredVelocity.multiplyScalar( this.maxSpeed );
+    this.steeringForce.addSelf( desiredVelocity.subSelf(this.velocity) );
+};
+
+exports.SteeredVehicle.prototype.flee = function(/* BOIDS.Vector3 */target)
+{
+    var desiredVelocity = new exports.Vector3();
+    desiredVelocity.set( target.x, target.y, target.z );
+    desiredVelocity.subSelf( this.position );
+    desiredVelocity.normalize();
+    desiredVelocity.multiplyScalar( this.maxSpeed );
+    this.steeringForce.subSelf( desiredVelocity.subSelf(this.velocity) );
+};
+
+exports.SteeredVehicle.prototype.arrive = function(/* BOIDS.Vector3 */target) {
+    
+    var arrivalThreshold = this.maxSpeed * 25;
+    var desiredVelocity = new exports.Vector3();
+    desiredVelocity.set( target.x, target.y, target.z );
+    desiredVelocity.subSelf( this.position );
+    desiredVelocity.normalize();
+    
+    var dist = this.position.distanceTo( target );
+    if (dist > arrivalThreshold) desiredVelocity.multiplyScalar( this.maxSpeed );
+    else desiredVelocity.multiplyScalar( this.maxSpeed * dist / arrivalThreshold );
+    
+    this.steeringForce.addSelf( desiredVelocity.subSelf(this.velocity) );
+};
+
+// stalk target vehicle
+exports.SteeredVehicle.prototype.pursue = function(/* BOIDS.Vehicle */target)
+{
+    var lookAheadTime = this.position.distanceTo(target.position) / this.maxSpeed;
+    
+    var targetVelocity = new exports.Vector3();
+    targetVelocity.set(target.velocity.x, target.velocity.y, target.velocity.z);
+    targetVelocity.multiplyScalar( lookAheadTime );
+    
+    var predictedTarget = new exports.Vector3();
+    predictedTarget.set(target.position.x, target.position.y, target.position.z);
+    predictedTarget.addSelf(targetVelocity);
+    
+    this.seek(predictedTarget);
+};
+
+exports.SteeredVehicle.prototype.evade = function(/* BOIDS.Vehicle */target)
+{
+    var lookAheadTime = this.position.distanceTo(target.position) / this.maxSpeed;
+    
+    var targetVelocity = new exports.Vector3();
+    targetVelocity.set(target.velocity.x, target.velocity.y, target.velocity.z);
+    targetVelocity.multiplyScalar( lookAheadTime );
+    
+    var predictedTarget = new exports.Vector3();
+    predictedTarget.set(target.position.x, target.position.y, target.position.z);
+    predictedTarget.subSelf( targetVelocity );
+    
+    this.flee(predictedTarget);
+};
+
+exports.SteeredVehicle.prototype.patrol = function(/* Array */paths, loop) {
+    
+    loop = loop || false;
+    
+    var isLast = this.pathIndex >= paths.length - 1;
+    
+    if (this.position.distanceTo(paths[this.pathIndex]) < this.pathThreshold)
+    {
+        if (isLast && loop) this.pathIndex = 0;
+        else if (!isLast) this.pathIndex++;
+    }
+    
+    if (isLast && !loop) this.arrive(paths[this.pathIndex]);
+    else this.seek(paths[this.pathIndex]);
+};
+
+exports.SteeredVehicle.prototype.flock = function(/* Array */vehicles) {
+    
+    var averageVelocity = new exports.Vector3();;
+    var averagePosition = new exports.Vector3();;
+    var inSightCnt = 0;
+    
+    averageVelocity.set(this.velocity.x, this.velocity.y, this.velocity.z);
+    
+    for (var i = 0; i < vehicles.length; i++)
+    {
+        if (vehicles[i].id == this.id) continue;
+        if (!this.inSight(vehicles[i].position)) continue;
+        
+        averageVelocity.addSelf( vehicles[i].velocity );
+        averagePosition.addSelf( vehicles[i].position );
+        inSightCnt++;
+        
+        if (this.tooClose(vehicles[i].position))
+        {
+            this.flee(vehicles[i].position);
+        }
+    }
+    
+    if (inSightCnt > 0)
+    {
+        averagePosition.multiplyScalar( 1.0 / inSightCnt );
+        this.seek(averagePosition);
+        averageVelocity.multiplyScalar( 1.0 / inSightCnt );
+        
+        this.steeringForce.addSelf( averageVelocity.subSelf(this.velocity) );
+    }
+};
+
+exports.SteeredVehicle.prototype.randomWalk = function() {
+
+    var desiredVelocity = exports.getRandVec();
+    desiredVelocity.normalize();
+    desiredVelocity.multiplyScalar( this.maxSpeed );
+    this.steeringForce.addSelf( desiredVelocity.subSelf( this.velocity ) );
+};
+
+exports.SteeredVehicle.prototype.inSight = function(/* BOIDS.Vector3 */target)
+{
+    if (this.position.distanceTo(target) > this.inSightDist) return false;
+    
+    var heading = new exports.Vector3();
+    heading.set(this.velocity.x, this.velocity.y, this.velocity.z);
+    heading.normalize();
+    
+    var difference = new exports.Vector3();
+    difference.set( target );
+    difference.subSelf( this.position );
+    
+    if (difference.dot(heading) < 0) return false;
+    else return true;
+};
+
+exports.SteeredVehicle.prototype.tooClose = function(/* BOIDS.Vector3 */target) {
+    
+    return this.position.distanceTo(target) < this.tooCloseDist;
+};
+// src/core/BiologicalVehicle.js
+exports.BiologicalVehicle = function( x, y, z ) {
+    
+    var age = 0.0;
+    
+    function aging( inc ) {
+        
+        age += inc;
+        
+        var per = (this.lifeSpan - age) / this.lifeSpan;
+        
+        this.remainingLifePer = Math.max( 0.0, Math.min( 1.0, per ) );
+    };
+    
+    function isDead() {
+        
+        return age > this.lifeSpan;
+    };
+    
+    this.lifeSpan = 1.0;
+    this.remainingLifePer = 1.0;
+    this.aging = aging;
+    this.isDead = isDead;
+    
+    exports.SteeredVehicle.call( this, x, y, z );
+};
+
+exports.BiologicalVehicle.prototype = new exports.SteeredVehicle();
+
+// src/object/bird.js
+exports.THREE.Bird = function (options) {
+
+    options = options || {};
+    if (options.color == undefined) options.color = 0x646464;
+
+    function v(x, y, z) {
+        geometry.vertices.push(new THREE.Vector3(x, y, z));
+    }
+
+    function f3(a, b, c) {
+        geometry.faces.push( new THREE.Face3( a, b, c ) );
+    }
+
+    var geometry = new THREE.Geometry();
+    var material = new THREE.MeshBasicMaterial({
+        color: new THREE.Color( options.color ),
+        side: THREE.DoubleSide
+    });
+
+    v(   5,   0,   0 );
+    v( - 5, - 2,   1 );
+    v( - 5,   0,   0 );
+    v( - 5, - 2, - 1 );
+
+    v(   0,   2, - 6 );
+    v(   0,   2,   6 );
+    v(   2,   0,   0 );
+    v( - 3,   0,   0 );
+
+    f3( 0, 2, 1 ); // body
+    f3( 0, 3, 2 );
+
+    f3( 4, 7, 6 ); // right wing
+    f3( 5, 6, 7 ); //　left wing
+
+    THREE.Mesh.call(this, geometry, material);
+
+    this.phase = Math.floor(Math.random() * 62.83);
+
+    this.behavior = new boids.SteeredVehicle(0, 0, 0);
+    this.behavior.maxForce = .15;
+
+}
+
+exports.THREE.Bird.prototype = Object.create(THREE.Mesh.prototype);
+
+/*
+  @param target boids.Vector3
+*/
+exports.THREE.Bird.prototype.seek = function(target) {
+
+    this.behavior.seek(target);
+
+}
+
+/*
+  @param target boids.Vector3
+*/
+exports.THREE.Bird.prototype.flee = function(target) {
+
+    this.behavior.flee(target);
+
+}
+
+/*
+  @param target boids.Vector3
+*/
+exports.THREE.Bird.prototype.arrive = function(target) {
+
+    this.behavior.arrive(target);
+
+}
+
+/*
+  @param paths array
+  @param loop boolean
+*/
+exports.THREE.Bird.prototype.patrol = function(paths, loop) {
+
+    this.behavior.patrol(paths, loop);
+
+}
+
+/*
+  @param target boids.Vector3
+*/
+exports.THREE.Bird.prototype.tooClose = function(target) {
+
+    this.behavior.tooClose(target);
+
+}
+
+/*
+  @param array of boids.Vector3
+*/
+exports.THREE.Bird.prototype.flock = function(boids) {
+
+    this.behavior.flock(boids);
+
+}
+
+exports.THREE.Bird.prototype.wrap = function(width, height, depth) {
+
+    this.behavior.wrap(width, height, depth);
+
+}
+
+exports.THREE.Bird.prototype.bounce = function(width, height, depth) {
+
+    this.behavior.bounce(width, height, depth);
+
+}
+
+exports.THREE.Bird.prototype.wander = function() {
+
+    this.behavior.wander();
+
+}
+
+exports.THREE.Bird.prototype.inSight = function(target) {
+    return this.behavior.inSight(target);
+}
+
+exports.THREE.Bird.prototype.update = function(options) {
+
+    options = options || {};
+
+    this.behavior.update();
+    // this.behavior.wrap(500, 500, 400);
+    this.flap();
+
+    this.position.x = this.behavior.position.x;
+    this.position.y = this.behavior.position.y;
+    this.position.z = this.behavior.position.z;
+
+    if (options.color != undefined) {
+      // console.log(options.color);
+      this.material.color = new THREE.Color( options.color );
+      console.log(this.material)
+    }
+}
+
+/*
+    private
+*/
+exports.THREE.Bird.prototype.flap = function() {
+
+    this.rotation.y = Math.atan2(-this.behavior.velocity.z, this.behavior.velocity.x);
+    this.rotation.z = Math.asin(this.behavior.velocity.y / this.behavior.velocity.length());
+
+    this.phase = (this.phase + (Math.max(0, this.rotation.z) + 0.1)) % 62.83;
+    this.geometry.verticesNeedUpdate = true;
+
+    this.geometry.vertices[ 5 ].y =
+    this.geometry.vertices[ 4 ].y = Math.sin(this.phase) * 5;
+
+}
+
+return exports;
+})();
