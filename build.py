@@ -12,7 +12,7 @@
     ```
 """
 
-version = '1.2.6'
+version = '1.2.7'
 module = 'boids'
 input_path = 'src/'
 output_path = 'build/boids.js'
