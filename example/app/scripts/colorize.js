@@ -1,6 +1,11 @@
 var camera, scene, renderer;
-var bird, target;
-var rot = 0;
+var bird, rot = 0, before;
+
+var paths = [
+  new boids.Vector3( 60,  40, -40),
+  new boids.Vector3(-20,  40, -40),
+  new boids.Vector3(-20,  0, 40)
+];
 
 function resize() {
 
@@ -15,22 +20,14 @@ function animate() {
     renderer.render(scene, camera);
 
 }
-var before;
+
 function update() {
 
-    if (bird.inSight(target)) {
-        target = new boids.Vector3(
-            Math.random() * $('#main').width()  / 3 - $('#main').width()  / 6,
-            Math.random() * $('#main').height() / 3 - $('#main').height() / 6,
-            Math.random() * $('#main').width()  / 3 - $('#main').width()  / 6
-        );
-    }
-
-    bird.seek(target);
+    bird.patrol(paths, true);
 
     rot++;
     var colors = [0x88b7d5, 0xff4422];
-    var after = colors[Math.round(rot / 100) % 2];
+    var after = colors[Math.round(rot / 30) % 2];
     if (before != after) before = after;
     bird.update({ color: before });
 }
@@ -47,8 +44,10 @@ $(function() {
     camera = new THREE.PerspectiveCamera(75, $('#main').width() / $('#main').height(), 1, 10000);
     camera.position.z = 100;
 
-    bird = new boids.THREE.Bird({ color: 0x88b7d5 });
-    target = new boids.Vector3();
+    bird = new boids.THREE.Bird({
+      color: 0x88b7d5,
+      position: new boids.Vector3( 20, 0, 0 )
+    });
 
     scene = new THREE.Scene();
     scene.add(bird);
