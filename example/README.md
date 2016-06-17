@@ -3,7 +3,9 @@ Since using [Grunt](http://gruntjs.com/) in the development environment, run the
 
 ```
 $ cd /path/to/boids.js/example
-$ npm install; bower install
+$ npm install
+$ mkdir bower_components
+$ bower install
 $ grunt serve
 ```
 

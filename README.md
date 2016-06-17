@@ -9,4 +9,4 @@ which are separation, alignment and cohesion.
 
 ## License
 
-Copyright (c) 2012-2015 Satoshi Okami. See the LICENSE file for license rights and limitations (MIT).
+Copyright (c) 2012-2016 Satoshi Okami. See the LICENSE file for license rights and limitations (MIT).
