@@ -1,6 +1,18 @@
 #!/usr/bin/python
 
-version = '1.2.5'
+"""
+  We use closure-compiler in build process.
+  There is no hindrance in develop. but closure-compiler
+  is necessary for building release version.
+
+  1. download latest from https://github.com/google/closure-compiler
+  2. install closure-compiler.
+    ```
+      sudo mv compiler.jar /usr/local/bin/closure
+    ```
+"""
+
+version = '1.2.6'
 module = 'boids'
 input_path = 'src/'
 output_path = 'build/boids.js'

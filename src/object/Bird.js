@@ -1,5 +1,8 @@
-exports.THREE.Bird = function () {
-    
+exports.THREE.Bird = function (options) {
+
+    options = options || {};
+    if (options.color == undefined) options.color = 0x646464;
+
     function v(x, y, z) {
         geometry.vertices.push(new THREE.Vector3(x, y, z));
     }
@@ -10,7 +13,7 @@ exports.THREE.Bird = function () {
     
     var geometry = new THREE.Geometry();
     var material = new THREE.MeshBasicMaterial({
-        color: new THREE.Color( 0x646464 ),
+        color: new THREE.Color( options.color ),
         side: THREE.DoubleSide
     });
     
@@ -118,7 +121,9 @@ exports.THREE.Bird.prototype.inSight = function(target) {
     return this.behavior.inSight(target);
 }
 
-exports.THREE.Bird.prototype.update = function() {
+exports.THREE.Bird.prototype.update = function(options) {
+  
+    options = options || {};
     
     this.behavior.update();
     // this.behavior.wrap(500, 500, 400);
@@ -127,6 +132,11 @@ exports.THREE.Bird.prototype.update = function() {
     this.position.x = this.behavior.position.x;
     this.position.y = this.behavior.position.y;
     this.position.z = this.behavior.position.z;
+    
+    if (options.color != undefined) {
+      // console.log(options.color);
+      this.material.color = new THREE.Color( options.color );
+    }
 }
 
 /*
