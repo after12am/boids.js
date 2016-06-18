@@ -79,11 +79,10 @@ gulp.task('fonts', () => {
 
 gulp.task('extras', () => {
   return gulp.src([
-    'app/*.*',
-    '!app/*.html'
+    'app/styles/ie/*.*'
   ], {
     dot: true
-  }).pipe(gulp.dest('dist'));
+  }).pipe(gulp.dest('dist/styles/ie/'));
 });
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist/*', '!dist/.*']));
@@ -137,7 +136,7 @@ gulp.task('serve:test', ['scripts'], () => {
   gulp.watch('test/spec/**/*.js', ['lint:test']);
 });
 
-gulp.task('build', ['lint', 'ejs', 'images', 'fonts', 'styles', 'scripts'], () => {
+gulp.task('build', ['lint', 'ejs', 'images', 'fonts', 'styles', 'scripts', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
