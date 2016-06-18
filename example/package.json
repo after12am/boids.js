@@ -1,29 +1,51 @@
 {
-  "name": "example-boids.js",
-  "devDependencies": {
-    "apache-server-configs": "^2.7.1",
-    "grunt": "^0.4.5",
-    "grunt-autoprefixer": "^1.0.0",
-    "grunt-concurrent": "^0.5.0",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-connect": "^0.8.0",
-    "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-mocha": "^0.4.10",
-    "grunt-newer": "^0.7.0",
-    "grunt-rev": "^0.1.0",
-    "grunt-usemin": "^2.3.0",
-    "grunt-wiredep": "^1.7.0",
-    "jshint-stylish": "^0.4.0",
-    "load-grunt-tasks": "^0.4.0",
-    "time-grunt": "^0.4.0"
+  "name": "boids-example",
+  "version": "1.0.0",
+  "description": "This library simulates bird flock and fish school consists of three simple rules.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/after12am/boids.js.git"
+  },
+  "author": "satoshi okami",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/after12am/boids.js/issues"
+  },
+  "homepage": "https://github.com/after12am/boids.js#readme",
+  "private": true,
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4"
   },
-  "dependencies": {
-    "bower": "^1.7.9"
+  "devDependencies": {
+    "browser-sync": "^2.2.1",
+    "del": "^1.1.1",
+    "gulp": "^3.9.0",
+    "gulp-ejs": "^2.1.2",
+    "gulp-eslint": "^2.0.0",
+    "gulp-if": "^2.0.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-size": "^1.2.1",
+    "gulp-sourcemaps": "^1.5.0",
+    "gulp-useref": "^3.0.0",
+    "main-bower-files": "^2.5.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true,
+      "browser": true
+    },
+    "rules": {
+      "quotes": [
+        2,
+        "single"
+      ]
+    }
   }
 }

@@ -15,7 +15,7 @@
 version = '1.2.8'
 module = 'boids'
 input_path = 'src/'
-output_path = 'build/boids.js'
+output_path = ['build/boids.js', 'example/app/scripts/boids.js']
 
 import re, os, sys, time, tempfile
 
@@ -68,8 +68,9 @@ def build():
         os.remove(temp2_path)
         data = compress_source(data)
     data = header + data
-    open(output_path, 'w').write(data)
-    print 'built %s (%u lines)' % (output_path, len(data.split('\n')))
+    for path in output_path:
+        open(path, 'w').write(data)
+        print 'built %s (%u lines)' % (path, len(data.split('\n')))
 
 def stat():
     return [os.stat(file).st_mtime for file in sources()]
