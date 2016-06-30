@@ -1,0 +1,15 @@
+{
+  "name": "boids.js",
+  "version": "1.2.8",
+  "description": "This library simulates bird flock and fish school consists of three simple rules.",
+  "author": "satoshi okami",
+  "license": "MIT",
+  "devDependencies": {
+    "docdash": "^0.4.0",
+    "jsdoc": "^3.4.0"
+  },
+  "scripts": {
+    "docs": "node_modules/.bin/jsdoc -c jsdoc.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
