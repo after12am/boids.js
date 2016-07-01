@@ -11,7 +11,7 @@ const rename = require('gulp-rename');
 const ejs = require("gulp-ejs");
 
 gulp.task('ejs', () => {
-  return gulp.src('app/*.ejs')
+  return gulp.src('example/*.ejs')
     .pipe($.plumber())
     .pipe(ejs({}))
     .pipe(rename({extname: '.html'}))
@@ -21,14 +21,14 @@ gulp.task('ejs', () => {
 });
 
 gulp.task('styles', () => {
-  return gulp.src('app/styles/*.css')
+  return gulp.src('example/styles/*.css')
     .pipe(gulp.dest('.tmp/styles'))
     .pipe(gulp.dest('dist/styles'))
     .pipe(reload({stream: true}));
 });
 
 gulp.task('scripts', () => {
-  return gulp.src('app/scripts/**/*.js')
+  return gulp.src('example/scripts/**/*.js')
     .pipe($.plumber())
     .pipe(gulp.dest('.tmp/scripts'))
     .pipe(gulp.dest('dist/scripts'))
@@ -44,10 +44,10 @@ function lint(files, options) {
 }
 
 gulp.task('lint', () => {
-  return lint('app/scripts/**/*.js', {
+  return lint('example/scripts/**/*.js', {
     fix: true
   })
-    .pipe(gulp.dest('app/scripts'));
+    .pipe(gulp.dest('example/scripts'));
 });
 gulp.task('lint:test', () => {
   return lint('test/spec/**/*.js', {
@@ -60,26 +60,27 @@ gulp.task('lint:test', () => {
 });
 
 gulp.task('html', ['styles', 'scripts'], () => {
-  return gulp.src('app/*.html')
+  return gulp.src('example/*.html')
     .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     .pipe(gulp.dest('dist'));
 });
 
 gulp.task('images', () => {
-  return gulp.src('app/images/**/*')
+  return gulp.src('example/images/**/*')
+    .pipe(gulp.dest('.tmp/images'))
     .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('fonts', () => {
   return gulp.src(require('main-bower-files')('**/*.{eot,svg,ttf,woff,woff2}', function (err) {})
-    .concat('app/fonts/**/*'))
+    .concat('example/fonts/**/*'))
     .pipe(gulp.dest('.tmp/fonts'))
     .pipe(gulp.dest('dist/fonts'));
 });
 
 gulp.task('extras', () => {
   return gulp.src([
-    'app/styles/ie/*.*'
+    'example/styles/ie/*.*'
   ], {
     dot: true
   }).pipe(gulp.dest('dist/styles/ie/'));
@@ -87,7 +88,7 @@ gulp.task('extras', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist/*', '!dist/.*']));
 
-gulp.task('serve', ['ejs', 'styles', 'scripts', 'fonts'], () => {
+gulp.task('serve', ['ejs', 'styles', 'scripts', 'images', 'fonts'], () => {
   browserSync({
     notify: false,
     port: 9000,
@@ -97,15 +98,15 @@ gulp.task('serve', ['ejs', 'styles', 'scripts', 'fonts'], () => {
   });
 
   gulp.watch([
-    'app/*.html',
-    'app/images/**/*',
+    'example/*.html',
+    'example/images/**/*',
     '.tmp/fonts/**/*'
   ]).on('change', reload);
 
-  gulp.watch('app/**/*.ejs', ['ejs']);
-  gulp.watch('app/styles/**/*.css', ['styles']);
-  gulp.watch('app/scripts/**/*.js', ['scripts']);
-  gulp.watch('app/fonts/**/*', ['fonts']);
+  gulp.watch('example/**/*.ejs', ['ejs']);
+  gulp.watch('example/styles/**/*.css', ['styles']);
+  gulp.watch('example/scripts/**/*.js', ['scripts']);
+  gulp.watch('example/fonts/**/*', ['fonts']);
 });
 
 gulp.task('serve:dist', () => {
@@ -131,7 +132,7 @@ gulp.task('serve:test', ['scripts'], () => {
     }
   });
 
-  gulp.watch('app/scripts/**/*.js', ['scripts']);
+  gulp.watch('example/scripts/**/*.js', ['scripts']);
   gulp.watch('test/spec/**/*.js').on('change', reload);
   gulp.watch('test/spec/**/*.js', ['lint:test']);
 });

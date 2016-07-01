@@ -1,4 +1,5 @@
 .DS_Store
+.tmp
 *.pyc
 node_modules
 dist
