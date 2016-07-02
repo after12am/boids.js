@@ -12,12 +12,13 @@
   ```
 """
 
-version = '1.2.9'
+import re, os, sys, time, tempfile, yaml
+
+version = yaml.load(open('package.json').read()).get('version')
+
 module = 'boids'
 input_path = 'src/'
 output_path = ['build/boids.js', 'example/scripts/boids.js']
-
-import re, os, sys, time, tempfile
 
 header = '''/*
  * boids.js
