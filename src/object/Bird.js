@@ -21,15 +21,15 @@
  SOFTWARE.
 
  **********************************************************************************/
- 
+
 /**
  * @class
  * @classdesc
  * @augments THREE.Mesh
  * @param {Object} options
  */
- exports.THREE.Bird = function (options)
- {
+exports.THREE.Bird = function (options)
+{
   function v(x, y, z)
   {
     geometry.vertices.push(new THREE.Vector3(x, y, z));
@@ -113,6 +113,26 @@ exports.THREE.Bird.prototype.arrive = function(target)
 
 /**
  * @access public
+ * @param {Vehicle} target
+ * @see {@link SteeredVehicle#pursue}
+ */
+exports.THREE.Bird.prototype.pursue = function(target)
+{
+  this.behavior.pursue(target);
+}
+
+/**
+ * @access public
+ * @param {Vehicle} target
+ * @see {@link SteeredVehicle#evade}
+ */
+exports.THREE.Bird.prototype.evade = function(target)
+{
+  this.behavior.evade(target);
+}
+
+/**
+ * @access public
  * @param {Array} paths array of Vector3. position list that you want to approach to
  * @see {@link SteeredVehicle#patrol}
  */
@@ -129,6 +149,25 @@ exports.THREE.Bird.prototype.patrol = function(paths, loop)
 exports.THREE.Bird.prototype.flock = function(vehicles)
 {
   this.behavior.flock(boids);
+}
+
+/**
+ * @access public
+ * @see {@link SteeredVehicle#randomWalk}
+ */
+exports.THREE.Bird.prototype.randomWalk = function()
+{
+  this.behavior.randomWalk();
+}
+
+/**
+ * @access public
+ * @param {Vector3} target
+ * @see {@link SteeredVehicle#inSight}
+ */
+exports.THREE.Bird.prototype.inSight = function(target)
+{
+  this.behavior.inSight(target);
 }
 
 /**
