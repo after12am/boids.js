@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>core/math/Vector3.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BiologicalVehicle.html">BiologicalVehicle</a><ul class='methods'><li data-type='method'><a href="BiologicalVehicle.html#aging">aging</a></li><li data-type='method'><a href="BiologicalVehicle.html#arrive">arrive</a></li><li data-type='method'><a href="BiologicalVehicle.html#bounce">bounce</a></li><li data-type='method'><a href="BiologicalVehicle.html#evade">evade</a></li><li data-type='method'><a href="BiologicalVehicle.html#flee">flee</a></li><li data-type='method'><a href="BiologicalVehicle.html#flock">flock</a></li><li data-type='method'><a href="BiologicalVehicle.html#inSight">inSight</a></li><li data-type='method'><a href="BiologicalVehicle.html#isDead">isDead</a></li><li data-type='method'><a href="BiologicalVehicle.html#patrol">patrol</a></li><li data-type='method'><a href="BiologicalVehicle.html#pursue">pursue</a></li><li data-type='method'><a href="BiologicalVehicle.html#randomWalk">randomWalk</a></li><li data-type='method'><a href="BiologicalVehicle.html#seek">seek</a></li><li data-type='method'><a href="BiologicalVehicle.html#tooClose">tooClose</a></li><li data-type='method'><a href="BiologicalVehicle.html#update">update</a></li><li data-type='method'><a href="BiologicalVehicle.html#wander">wander</a></li><li data-type='method'><a href="BiologicalVehicle.html#wrap">wrap</a></li></ul></li><li><a href="SteeredVehicle.html">SteeredVehicle</a><ul class='methods'><li data-type='method'><a href="SteeredVehicle.html#arrive">arrive</a></li><li data-type='method'><a href="SteeredVehicle.html#bounce">bounce</a></li><li data-type='method'><a href="SteeredVehicle.html#evade">evade</a></li><li data-type='method'><a href="SteeredVehicle.html#flee">flee</a></li><li data-type='method'><a href="SteeredVehicle.html#flock">flock</a></li><li data-type='method'><a href="SteeredVehicle.html#inSight">inSight</a></li><li data-type='method'><a href="SteeredVehicle.html#patrol">patrol</a></li><li data-type='method'><a href="SteeredVehicle.html#pursue">pursue</a></li><li data-type='method'><a href="SteeredVehicle.html#randomWalk">randomWalk</a></li><li data-type='method'><a href="SteeredVehicle.html#seek">seek</a></li><li data-type='method'><a href="SteeredVehicle.html#tooClose">tooClose</a></li><li data-type='method'><a href="SteeredVehicle.html#update">update</a></li><li data-type='method'><a href="SteeredVehicle.html#wander">wander</a></li><li data-type='method'><a href="SteeredVehicle.html#wrap">wrap</a></li></ul></li><li><a href="THREE.Bird.html">Bird</a><ul class='methods'><li data-type='method'><a href="THREE.Bird.html#arrive">arrive</a></li><li data-type='method'><a href="THREE.Bird.html#bounce">bounce</a></li><li data-type='method'><a href="THREE.Bird.html#flee">flee</a></li><li data-type='method'><a href="THREE.Bird.html#flock">flock</a></li><li data-type='method'><a href="THREE.Bird.html#inSight">inSight</a></li><li data-type='method'><a href="THREE.Bird.html#patrol">patrol</a></li><li data-type='method'><a href="THREE.Bird.html#seek">seek</a></li><li data-type='method'><a href="THREE.Bird.html#tooClose">tooClose</a></li><li data-type='method'><a href="THREE.Bird.html#update">update</a></li><li data-type='method'><a href="THREE.Bird.html#wander">wander</a></li><li data-type='method'><a href="THREE.Bird.html#wrap">wrap</a></li></ul></li><li><a href="THREE.MeshObject.html">MeshObject</a></li><li><a href="Vector3.html">Vector3</a><ul class='methods'><li data-type='method'><a href="Vector3.html#add">add</a></li><li data-type='method'><a href="Vector3.html#addScalar">addScalar</a></li><li data-type='method'><a href="Vector3.html#addSelf">addSelf</a></li><li data-type='method'><a href="Vector3.html#clone">clone</a></li><li data-type='method'><a href="Vector3.html#copy">copy</a></li><li data-type='method'><a href="Vector3.html#cross">cross</a></li><li data-type='method'><a href="Vector3.html#crossSelf">crossSelf</a></li><li data-type='method'><a href="Vector3.html#distanceTo">distanceTo</a></li><li data-type='method'><a href="Vector3.html#distanceToSquared">distanceToSquared</a></li><li data-type='method'><a href="Vector3.html#divideScalar">divideScalar</a></li><li data-type='method'><a href="Vector3.html#divideSelf">divideSelf</a></li><li data-type='method'><a href="Vector3.html#dot">dot</a></li><li data-type='method'><a href="Vector3.html#isZero">isZero</a></li><li data-type='method'><a href="Vector3.html#length">length</a></li><li data-type='method'><a href="Vector3.html#lengthManhattan">lengthManhattan</a></li><li data-type='method'><a href="Vector3.html#lengthSq">lengthSq</a></li><li data-type='method'><a href="Vector3.html#limitScalar">limitScalar</a></li><li data-type='method'><a href="Vector3.html#multiply">multiply</a></li><li data-type='method'><a href="Vector3.html#multiplyScalar">multiplyScalar</a></li><li data-type='method'><a href="Vector3.html#multiplySelf">multiplySelf</a></li><li data-type='method'><a href="Vector3.html#negate">negate</a></li><li data-type='method'><a href="Vector3.html#normalize">normalize</a></li><li data-type='method'><a href="Vector3.html#set">set</a></li><li data-type='method'><a href="Vector3.html#setLength">setLength</a></li><li data-type='method'><a href="Vector3.html#setX">setX</a></li><li data-type='method'><a href="Vector3.html#setY">setY</a></li><li data-type='method'><a href="Vector3.html#setZ">setZ</a></li><li data-type='method'><a href="Vector3.html#sub">sub</a></li><li data-type='method'><a href="Vector3.html#subSelf">subSelf</a></li></ul></li><li><a href="Vehicle.html">Vehicle</a><ul class='methods'><li data-type='method'><a href="Vehicle.html#bounce">bounce</a></li><li data-type='method'><a href="Vehicle.html#update">update</a></li><li data-type='method'><a href="Vehicle.html#wrap">wrap</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">core/math/Vector3.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**********************************************************************************
+
+ Copyright (C) 2012 - 2016 satoshi okami
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy of
+ this software and associated documentation files (the "Software"), to deal in
+ the Software without restriction, including without limitation the rights to
+ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ of the Software, and to permit persons to whom the Software is furnished to do
+ so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+ **********************************************************************************/
+ 
+/**
+ * @class
+ * @classdesc
+ * @param {float} x X-axis position
+ * @param {float} y Y-axis position
+ * @param {float} z Z-axis position
+ */
+exports.Vector3 = function ( x, y, z ) {
+  /** @access public */
+  this.x = x || 0;
+  /** @access public */
+  this.y = y || 0;
+  /** @access public */
+  this.z = z || 0;
+};
+
+exports.Vector3.prototype = {
+
+  constructor: exports.Vector3,
+
+  /**
+   * @access public
+   * @param {float} x
+   * @param {float} y
+   * @param {float} z
+   */
+  set: function ( x, y, z ) {
+
+    this.x = x;
+    this.y = y;
+    this.z = z;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {float} x
+   */
+  setX: function ( x ) {
+
+    this.x = x;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {float} y
+   */
+  setY: function ( y ) {
+
+    this.y = y;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {float} z
+   */
+  setZ: function ( z ) {
+
+    this.z = z;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v
+   */
+  copy: function ( v ) {
+
+    this.x = v.x;
+    this.y = v.y;
+    this.z = v.z;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   */
+  clone: function () {
+
+    return new exports.Vector3( this.x, this.y, this.z );
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v1
+   * @param {Vector3} v2
+   */
+  add: function ( v1, v2 ) {
+
+    this.x = v1.x + v2.x;
+    this.y = v1.y + v2.y;
+    this.z = v1.z + v2.z;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v
+   */
+  addSelf: function ( v ) {
+
+    this.x += v.x;
+    this.y += v.y;
+    this.z += v.z;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {float} s
+   */
+  addScalar: function ( s ) {
+
+    this.x += s;
+    this.y += s;
+    this.z += s;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v1
+   * @param {Vector3} v2
+   */
+  sub: function ( v1, v2 ) {
+
+    this.x = v1.x - v2.x;
+    this.y = v1.y - v2.y;
+    this.z = v1.z - v2.z;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v
+   */
+  subSelf: function ( v ) {
+
+    this.x -= v.x;
+    this.y -= v.y;
+    this.z -= v.z;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} a
+   * @param {Vector3} b
+   */
+  multiply: function ( a, b ) {
+
+    this.x = a.x * b.x;
+    this.y = a.y * b.y;
+    this.z = a.z * b.z;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v
+   */
+  multiplySelf: function ( v ) {
+
+    this.x *= v.x;
+    this.y *= v.y;
+    this.z *= v.z;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {float} s
+   */
+  multiplyScalar: function ( s ) {
+
+    this.x *= s;
+    this.y *= s;
+    this.z *= s;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v
+   */
+  divideSelf: function ( v ) {
+
+    this.x /= v.x;
+    this.y /= v.y;
+    this.z /= v.z;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {float} s
+   */
+  divideScalar: function ( s ) {
+
+    if ( s ) {
+
+      this.x /= s;
+      this.y /= s;
+      this.z /= s;
+
+    } else {
+
+      this.x = 0;
+      this.y = 0;
+      this.z = 0;
+
+    }
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   */
+  negate: function() {
+
+    return this.multiplyScalar( -1 );
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v
+   */
+  dot: function ( v ) {
+
+    return this.x * v.x + this.y * v.y + this.z * v.z;
+
+  },
+
+  /**
+   * @access public
+   */
+  lengthSq: function () {
+
+    return this.x * this.x + this.y * this.y + this.z * this.z;
+
+  },
+
+  /**
+   * @access public
+   */
+  length: function () {
+
+    return Math.sqrt( this.lengthSq() );
+
+  },
+
+  /**
+   * @access public
+   */
+  lengthManhattan: function () {
+
+    // correct version
+    // return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z );
+
+    return this.x + this.y + this.z;
+
+  },
+
+  /**
+   * @access public
+   */
+  normalize: function () {
+
+    return this.divideScalar( this.length() );
+
+  },
+
+  /**
+   * @access public
+   * @param {float} l
+   */
+  setLength: function ( l ) {
+
+    return this.normalize().multiplyScalar( l );
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} a
+   * @param {Vector3} b
+   */
+  cross: function ( a, b ) {
+
+    this.x = a.y * b.z - a.z * b.y;
+    this.y = a.z * b.x - a.x * b.z;
+    this.z = a.x * b.y - a.y * b.x;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v
+   */
+  crossSelf: function ( v ) {
+
+    var x = this.x, y = this.y, z = this.z;
+
+    this.x = y * v.z - z * v.y;
+    this.y = z * v.x - x * v.z;
+    this.z = x * v.y - y * v.x;
+
+    return this;
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v
+   */
+  distanceTo: function ( v ) {
+
+    return Math.sqrt( this.distanceToSquared( v ) );
+
+  },
+
+  /**
+   * @access public
+   * @param {Vector3} v
+   */
+  distanceToSquared: function ( v ) {
+
+    return new exports.Vector3().sub( this, v ).lengthSq();
+
+  },
+
+  /**
+   * @access private
+   */
+  // setPositionFromMatrix: function ( m ) {
+  //
+  //   this.x = m.n14;
+  //   this.y = m.n24;
+  //   this.z = m.n34;
+  //
+  // },
+
+  /**
+   * @access private
+   */
+  // setRotationFromMatrix: function ( m ) {
+  //
+  //   var cosY = Math.cos( this.y );
+  //
+  //   this.y = Math.asin( m.n13 );
+  //
+  //   if ( Math.abs( cosY ) > 0.00001 ) {
+  //
+  //     this.x = Math.atan2( - m.n23 / cosY, m.n33 / cosY );
+  //     this.z = Math.atan2( - m.n12 / cosY, m.n11 / cosY );
+  //
+  //   } else {
+  //
+  //     this.x = 0;
+  //     this.z = Math.atan2( m.n21, m.n22 );
+  //
+  //   }
+  //
+  // },
+
+  /**
+   * @access public
+   */
+  isZero: function () {
+
+    return ( this.lengthSq() &lt; 0.0001 /* almostZero */ );
+
+  },
+
+  /**
+   * @access public
+   * @param {float} s
+   */
+  limitScalar: function( s ) {
+    var lengthSquared = this.lengthSq();
+    if( lengthSquared > s * s &amp;&amp; lengthSquared > 0 ) {
+      var ratio = s / Math.sqrt( lengthSquared );
+      this.x *= ratio;
+      this.y *= ratio;
+      this.z *= ratio;
+    }
+    return this;
+  }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sat Jul 02 2016 13:17:31 GMT+0900 (JST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
