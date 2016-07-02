@@ -21,40 +21,24 @@
  SOFTWARE.
 
  **********************************************************************************/
- 
+
 /**
  * @class
  * @classdesc
- * @augments SteeredVehicle
  */
-exports.BiologicalVehicle = function( x, y, z )
+exports.THREE.MeshObject = function (geometry, material)
 {
-  /** @access public */
-  this.age = 0.0;
-  /** @access public */
-  this.lifeSpan = 1.0;
-  /** @access private */
-  this.remainingLifePer = 1.0;
-  exports.SteeredVehicle.call( this, x, y, z );
-};
+   THREE.Mesh.call(this, geometry, material);
+}
 
-exports.BiologicalVehicle.prototype = new exports.SteeredVehicle();
+exports.THREE.MeshObject.prototype = Object.create(THREE.Mesh.prototype);
 
-/**
- * @access public
- * @param {float} inc
- */
-exports.BiologicalVehicle.prototype.aging = function(inc)
+exports.THREE.MeshObject.prototype.v = function(x, y, z)
 {
-  this.age += inc;
-  var per = (this.lifeSpan - this.age) / this.lifeSpan;
-  this.remainingLifePer = Math.max(0.0, Math.min(1.0, per));
-};
+  // geometry.vertices.push(new THREE.Vector3(x, y, z));
+}
 
-/**
- * @access public
- */
-exports.BiologicalVehicle.prototype.isDead = function()
+exports.THREE.MeshObject.prototype.f3 = function(a, b, c)
 {
-  return this.age > this.lifeSpan;
-};
+  // geometry.faces.push( new THREE.Face3( a, b, c ) );
+}
