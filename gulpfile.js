@@ -1,4 +1,3 @@
-// generated on 2016-06-18 using generator-webapp 2.1.0
 const gulp = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync');
@@ -61,7 +60,7 @@ gulp.task('lint:test', () => {
 
 gulp.task('html', ['styles', 'scripts'], () => {
   return gulp.src('example/*.html')
-    .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
+    .pipe($.useref({searchPath: ['.tmp', 'example', '.']}))
     .pipe(gulp.dest('dist'));
 });
 
@@ -93,7 +92,7 @@ gulp.task('serve', ['ejs', 'styles', 'scripts', 'images', 'fonts'], () => {
     notify: false,
     port: 9000,
     server: {
-      baseDir: ['.tmp', 'app']
+      baseDir: ['.tmp', 'example']
     }
   });
 
