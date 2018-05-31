@@ -61,7 +61,7 @@ def build():
   if 'release' in sys.argv:
     f1, temp1_path = tempfile.mkstemp()
     f2, temp2_path = tempfile.mkstemp()
-    os.write(f1, data)
+    os.write(f1, str.encode(data))
     os.close(f1)
     os.close(f2)
     os.system('java -jar /usr/local/bin/closure --js %s --js_output_file %s' % (temp1_path, temp2_path))
@@ -72,7 +72,7 @@ def build():
   data = header + data
   for path in output_path:
     open(path, 'w').write(data)
-    print 'built %s (%u lines)' % (path, len(data.split('\n')))
+    print('built %s (%u lines)' % (path, len(data.split('\n'))))
 
 def gen_docs():
   os.system('npm run docs')
