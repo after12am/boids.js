@@ -148,7 +148,7 @@ exports.THREE.Bird.prototype.patrol = function(paths, loop)
  */
 exports.THREE.Bird.prototype.flock = function(vehicles)
 {
-  this.behavior.flock(boids);
+  this.behavior.flock(vehicles);
 }
 
 /**
