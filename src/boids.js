@@ -24,20 +24,20 @@
 
 exports.nextVehicleId = function() {
 
-    var vid = 0;
+  var vid = 0;
 
-    return function() { return vid++; };
+  return function() { return vid++; };
 }();
 
 exports.getRandVec = function() {
 
-    var vec = new exports.Vector3();
-    var a1 = (Math.random() * 360 * Math.PI / 180);
-    var a2 = (Math.random() * 2 * Math.PI);
+  var vec = new exports.Vector3();
+  var a1 = (Math.random() * 360 * Math.PI / 180);
+  var a2 = (Math.random() * 2 * Math.PI);
 
-    vec.x = (Math.sin(a1) * Math.cos(a2));
-    vec.y = (Math.sin(a1) * Math.sin(a2));
-    vec.z = (Math.cos(a1));
+  vec.x = (Math.sin(a1) * Math.cos(a2));
+  vec.y = (Math.sin(a1) * Math.sin(a2));
+  vec.z = (Math.cos(a1));
 
-    return vec;
+  return vec;
 };

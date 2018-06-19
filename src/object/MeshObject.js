@@ -28,7 +28,7 @@
  */
 exports.THREE.MeshObject = function (geometry, material)
 {
-   THREE.Mesh.call(this, geometry, material);
+  THREE.Mesh.call(this, geometry, material);
 }
 
 exports.THREE.MeshObject.prototype = Object.create(THREE.Mesh.prototype);
