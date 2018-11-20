@@ -21,40 +21,40 @@
  SOFTWARE.
 
  **********************************************************************************/
- 
+
 /**
  * @class
  * @classdesc
  * @augments SteeredVehicle
  */
-exports.BiologicalVehicle = function( x, y, z )
-{
-  /** @access public */
-  this.age = 0.0;
-  /** @access public */
-  this.lifeSpan = 1.0;
-  /** @access private */
-  this.remainingLifePer = 1.0;
-  exports.SteeredVehicle.call( this, x, y, z );
-};
+exports.BiologicalVehicle = class BiologicalVehicle extends exports.SteeredVehicle {
 
-exports.BiologicalVehicle.prototype = new exports.SteeredVehicle();
+  constructor( x, y, z ) {
+    super(x, y, z);
 
-/**
- * @access public
- * @param {float} inc
- */
-exports.BiologicalVehicle.prototype.aging = function(inc)
-{
-  this.age += inc;
-  var per = (this.lifeSpan - this.age) / this.lifeSpan;
-  this.remainingLifePer = Math.max(0.0, Math.min(1.0, per));
-};
+    /** @access public */
+    this.age = 0.0;
+    /** @access public */
+    this.lifeSpan = 1.0;
+    /** @access private */
+    this.remainingLifePer = 1.0;
+    exports.SteeredVehicle.call( this, x, y, z );
+  }
 
-/**
- * @access public
- */
-exports.BiologicalVehicle.prototype.isDead = function()
-{
-  return this.age > this.lifeSpan;
-};
+  /**
+   * @access public
+   * @param {float} inc
+   */
+  aging(inc) {
+    this.age += inc;
+    var per = (this.lifeSpan - this.age) / this.lifeSpan;
+    this.remainingLifePer = Math.max(0.0, Math.min(1.0, per));
+  };
+
+  /**
+   * @access public
+   */
+  isDead() {
+    return this.age > this.lifeSpan;
+  }
+}

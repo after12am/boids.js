@@ -17,7 +17,6 @@ import re, os, sys, time, tempfile, yaml
 version = yaml.load(open('package.json').read()).get('version')
 
 module = 'boids'
-input_path = 'src/'
 output_path = ['build/boids.js', 'example/scripts/boids.js']
 
 header = '''/*
@@ -31,13 +30,13 @@ header = '''/*
 
 def sources():
   filePaths = [
-  	'src/core/math/Vector3.js',
-    'src/boids.js',
-    'src/core/Vehicle.js',
-    'src/core/SteeredVehicle.js',
-    'src/core/BiologicalVehicle.js',
-    'src/object/MeshObject.js',
-    'src/object/Bird.js'
+    '.tmp/core/math/Vector3.js',
+    '.tmp/boids.js',
+    '.tmp/core/Vehicle.js',
+    '.tmp/core/SteeredVehicle.js',
+    '.tmp/core/BiologicalVehicle.js',
+    '.tmp/object/MeshObject.js',
+    '.tmp/object/Bird.js'
   ]
   return filePaths
 
@@ -56,7 +55,11 @@ def compress_source(text):
   text = re.sub(r"('([^'\\]|\\(.|\n))*'|\"([^\"\\]|\\(.|\n))*\")", compress, text) # replace all strings
   return text
 
+def transpile():
+  os.system('./node_modules/.bin/babel src/ -d .tmp/ --presets=babel-preset-es2015 > /dev/null')
+
 def build():
+  transpile()
   data = 'var %s = (function() {\nvar exports = {VERSION: \'%s\'};\n\nexports.THREE = {};\n\n' % (module, version) + compile(sources()) + '\nreturn exports;\n})();\n'
   if 'release' in sys.argv:
     f1, temp1_path = tempfile.mkstemp()
@@ -78,7 +81,8 @@ def gen_docs():
   os.system('npm run docs')
 
 def stat():
-  return [os.stat(file).st_mtime for file in sources()]
+  transpile()
+  return "\n".join([open(file).read() for file in sources()])
 
 def monitor():
   a = stat()

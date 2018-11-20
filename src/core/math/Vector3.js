@@ -21,7 +21,7 @@
  SOFTWARE.
 
  **********************************************************************************/
- 
+
 /**
  * @class
  * @classdesc
@@ -29,18 +29,21 @@
  * @param {float} y Y-axis position
  * @param {float} z Z-axis position
  */
-exports.Vector3 = function ( x, y, z ) {
-  /** @access public */
-  this.x = x || 0;
-  /** @access public */
-  this.y = y || 0;
-  /** @access public */
-  this.z = z || 0;
-};
+exports.Vector3 = class Vector3 {
 
-exports.Vector3.prototype = {
-
-  constructor: exports.Vector3,
+  /**
+   * @param {float} x X-axis position
+   * @param {float} y Y-axis position
+   * @param {float} z Z-axis position
+   */
+  constructor( x, y, z ) {
+    /** @access public */
+    this.x = x || 0;
+    /** @access public */
+    this.y = y || 0;
+    /** @access public */
+    this.z = z || 0;
+  }
 
   /**
    * @access public
@@ -48,7 +51,7 @@ exports.Vector3.prototype = {
    * @param {float} y
    * @param {float} z
    */
-  set: function ( x, y, z ) {
+  set( x, y, z ) {
 
     this.x = x;
     this.y = y;
@@ -56,49 +59,49 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {float} x
    */
-  setX: function ( x ) {
+  setX( x ) {
 
     this.x = x;
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {float} y
    */
-  setY: function ( y ) {
+  setY( y ) {
 
     this.y = y;
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {float} z
    */
-  setZ: function ( z ) {
+  setZ( z ) {
 
     this.z = z;
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v
    */
-  copy: function ( v ) {
+  copy( v ) {
 
     this.x = v.x;
     this.y = v.y;
@@ -106,23 +109,23 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    */
-  clone: function () {
+  clone() {
 
     return new exports.Vector3( this.x, this.y, this.z );
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v1
    * @param {Vector3} v2
    */
-  add: function ( v1, v2 ) {
+  add( v1, v2 ) {
 
     this.x = v1.x + v2.x;
     this.y = v1.y + v2.y;
@@ -130,13 +133,13 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v
    */
-  addSelf: function ( v ) {
+  addSelf( v ) {
 
     this.x += v.x;
     this.y += v.y;
@@ -144,13 +147,13 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {float} s
    */
-  addScalar: function ( s ) {
+  addScalar( s ) {
 
     this.x += s;
     this.y += s;
@@ -158,14 +161,14 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v1
    * @param {Vector3} v2
    */
-  sub: function ( v1, v2 ) {
+  sub( v1, v2 ) {
 
     this.x = v1.x - v2.x;
     this.y = v1.y - v2.y;
@@ -173,13 +176,13 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v
    */
-  subSelf: function ( v ) {
+  subSelf( v ) {
 
     this.x -= v.x;
     this.y -= v.y;
@@ -187,14 +190,14 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} a
    * @param {Vector3} b
    */
-  multiply: function ( a, b ) {
+  multiply( a, b ) {
 
     this.x = a.x * b.x;
     this.y = a.y * b.y;
@@ -202,13 +205,13 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v
    */
-  multiplySelf: function ( v ) {
+  multiplySelf( v ) {
 
     this.x *= v.x;
     this.y *= v.y;
@@ -216,13 +219,13 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {float} s
    */
-  multiplyScalar: function ( s ) {
+  multiplyScalar( s ) {
 
     this.x *= s;
     this.y *= s;
@@ -230,13 +233,13 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v
    */
-  divideSelf: function ( v ) {
+  divideSelf( v ) {
 
     this.x /= v.x;
     this.y /= v.y;
@@ -244,13 +247,13 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {float} s
    */
-  divideScalar: function ( s ) {
+  divideScalar( s ) {
 
     if ( s ) {
 
@@ -268,82 +271,82 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    */
-  negate: function() {
+  negate() {
 
     return this.multiplyScalar( -1 );
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v
    */
-  dot: function ( v ) {
+  dot( v ) {
 
     return this.x * v.x + this.y * v.y + this.z * v.z;
 
-  },
+  }
 
   /**
    * @access public
    */
-  lengthSq: function () {
+  lengthSq() {
 
     return this.x * this.x + this.y * this.y + this.z * this.z;
 
-  },
+  }
 
   /**
    * @access public
    */
-  length: function () {
+  length() {
 
     return Math.sqrt( this.lengthSq() );
 
-  },
+  }
 
   /**
    * @access public
    */
-  lengthManhattan: function () {
+  lengthManhattan() {
 
     // correct version
     // return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z );
 
     return this.x + this.y + this.z;
 
-  },
+  }
 
   /**
    * @access public
    */
-  normalize: function () {
+  normalize() {
 
     return this.divideScalar( this.length() );
 
-  },
+  }
 
   /**
    * @access public
    * @param {float} l
    */
-  setLength: function ( l ) {
+  setLength( l ) {
 
     return this.normalize().multiplyScalar( l );
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} a
    * @param {Vector3} b
    */
-  cross: function ( a, b ) {
+  cross( a, b ) {
 
     this.x = a.y * b.z - a.z * b.y;
     this.y = a.z * b.x - a.x * b.z;
@@ -351,13 +354,13 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v
    */
-  crossSelf: function ( v ) {
+  crossSelf( v ) {
 
     var x = this.x, y = this.y, z = this.z;
 
@@ -367,43 +370,43 @@ exports.Vector3.prototype = {
 
     return this;
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v
    */
-  distanceTo: function ( v ) {
+  distanceTo( v ) {
 
     return Math.sqrt( this.distanceToSquared( v ) );
 
-  },
+  }
 
   /**
    * @access public
    * @param {Vector3} v
    */
-  distanceToSquared: function ( v ) {
+  distanceToSquared( v ) {
 
     return new exports.Vector3().sub( this, v ).lengthSq();
 
-  },
+  }
 
   /**
    * @access private
    */
-  // setPositionFromMatrix: function ( m ) {
+  // setPositionFromMatrix( m ) {
   //
   //   this.x = m.n14;
   //   this.y = m.n24;
   //   this.z = m.n34;
   //
-  // },
+  // }
 
   /**
    * @access private
    */
-  // setRotationFromMatrix: function ( m ) {
+  // setRotationFromMatrix( m ) {
   //
   //   var cosY = Math.cos( this.y );
   //
@@ -421,22 +424,22 @@ exports.Vector3.prototype = {
   //
   //   }
   //
-  // },
+  // }
 
   /**
    * @access public
    */
-  isZero: function () {
+  isZero() {
 
     return ( this.lengthSq() < 0.0001 /* almostZero */ );
 
-  },
+  }
 
   /**
    * @access public
    * @param {float} s
    */
-  limitScalar: function( s ) {
+  limitScalar( s ) {
     var lengthSquared = this.lengthSq();
     if( lengthSquared > s * s && lengthSquared > 0 ) {
       var ratio = s / Math.sqrt( lengthSquared );
@@ -446,4 +449,4 @@ exports.Vector3.prototype = {
     }
     return this;
   }
-};
+}

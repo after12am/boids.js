@@ -21,101 +21,103 @@
  SOFTWARE.
 
  **********************************************************************************/
- 
-/**
- * @class
- * @classdesc
- * @param {float} x X-axis position
- * @param {float} y Y-axis position
- * @param {float} z Z-axis position
- */
- exports.Vehicle = function( x, y, z )
- {
-  this.id = exports.nextVehicleId();
-  /** @access private */
-  this.mass = 1.0;
-  /** @access private */
-  this.maxSpeed = 4.0;
-  /** @access private */
-  this.maxTrailSize = 10;
-  /** @access private */
-  this.position = new exports.Vector3( x, y, z );
-  /** @access private */
-  this.velocity = new exports.Vector3();
-  /** @access private */
-  this.trails = [];
-};
 
-/**
- * @access public
- */
-exports.Vehicle.prototype.update = function()
-{
-  this.velocity.limitScalar(this.maxSpeed);
-  this.position.addSelf(this.velocity);
-  this.trails.push(this.position.clone());
+ /**
+  * @class
+  * @classdesc
+  */
+exports.Vehicle = class Vehicle {
 
-  if (this.trails.length >= this.maxTrailSize) {
-    this.trails.shift();
-  }
-};
-
-/**
- * @access public
- * @param {int} w width
- * @param {int} h height
- * @param {int} d depth
- */
-exports.Vehicle.prototype.bounce = function(w, h, d)
-{
-  if (this.position.x > w * .5) {
-    this.position.x = w * .5;
-    this.velocity.x *= -1;
-  } else if (this.position.x < - w * .5) {
-    this.position.x = - w * .5;
-    this.velocity.x *= -1;
+  /**
+   * constructor
+   * @param {float} x X-axis position
+   * @param {float} y Y-axis position
+   * @param {float} z Z-axis position
+   */
+  constructor(x, y, z) {
+    this.id = exports.nextVehicleId();
+    /** @access private */
+    this.mass = 1.0;
+    /** @access private */
+    this.maxSpeed = 4.0;
+    /** @access private */
+    this.maxTrailSize = 10;
+    /** @access private */
+    this.position = new exports.Vector3( x, y, z );
+    /** @access private */
+    this.velocity = new exports.Vector3();
+    /** @access private */
+    this.trails = [];
   }
 
-  if (this.position.y > h * .5) {
-    this.position.y = h * .5;
-    this.velocity.y *= -1;
-  } else if (this.position.y < - h * .5) {
-    this.position.y = - h * .5;
-    this.velocity.y *= -1;
+  /**
+   * @access public
+   */
+  update() {
+    this.velocity.limitScalar(this.maxSpeed);
+    this.position.addSelf(this.velocity);
+    this.trails.push(this.position.clone());
+
+    if (this.trails.length >= this.maxTrailSize) {
+      this.trails.shift();
+    }
   }
 
-  if (this.position.z > d * .5) {
-    this.position.z = d * .5;
-    this.velocity.z *= -1;
-  } else if (this.position.z < - d * .5) {
-    this.position.z = - d * .5;
-    this.velocity.z *= -1;
-  }
-};
+  /**
+   * @access public
+   * @param {int} w width
+   * @param {int} h height
+   * @param {int} d depth
+   */
+  bounce(w, h, d) {
+    if (this.position.x > w * .5) {
+      this.position.x = w * .5;
+      this.velocity.x *= -1;
+    } else if (this.position.x < - w * .5) {
+      this.position.x = - w * .5;
+      this.velocity.x *= -1;
+    }
 
-/**
- * @access public
- * @param {int} w width
- * @param {int} h height
- * @param {int} d depth
- */
-exports.Vehicle.prototype.wrap = function(w, h, d)
-{
-  if (this.position.x > w * .5) {
-    this.position.x = - w * .5;
-  } else if (this.position.x < - w * .5) {
-    this.position.x = w * .5;
+    if (this.position.y > h * .5) {
+      this.position.y = h * .5;
+      this.velocity.y *= -1;
+    } else if (this.position.y < - h * .5) {
+      this.position.y = - h * .5;
+      this.velocity.y *= -1;
+    }
+
+    if (this.position.z > d * .5) {
+      this.position.z = d * .5;
+      this.velocity.z *= -1;
+    } else if (this.position.z < - d * .5) {
+      this.position.z = - d * .5;
+      this.velocity.z *= -1;
+    }
   }
 
-  if (this.position.y > h * .5) {
-    this.position.y = - h * .5;
-  } else if (this.position.y < - h * .5) {
-    this.position.y = h * .5;
-  }
+  /**
+   * @access public
+   * @param {int} w width
+   * @param {int} h height
+   * @param {int} d depth
+   */
+  wrap(w, h, d) {
+    if (this.position.x > w * .5) {
+      this.position.x = - w * .5;
+    } else if (this.position.x < - w * .5) {
+      this.position.x = w * .5;
+    }
 
-  if (this.position.z > d * .5) {
-    this.position.z = - d * .5;
-  } else if (this.position.z < - d * .5) {
-    this.position.z = d * .5;
+    if (this.position.y > h * .5) {
+      this.position.y = - h * .5;
+    } else if (this.position.y < - h * .5) {
+      this.position.y = h * .5;
+    }
+
+    if (this.position.z > d * .5) {
+      this.position.z = - d * .5;
+    } else if (this.position.z < - d * .5) {
+      this.position.z = d * .5;
+    }
   }
-};
+}
