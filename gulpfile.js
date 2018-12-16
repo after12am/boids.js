@@ -9,6 +9,7 @@ const reload = browserSync.reload;
 const rename = require('gulp-rename');
 const ejs = require("gulp-ejs");
 
+
 gulp.task('ejs', () => {
   return gulp.src('example/*.ejs')
     .pipe($.plumber())
@@ -48,21 +49,6 @@ gulp.task('lint', () => {
   })
     .pipe(gulp.dest('example/scripts'));
 });
-gulp.task('lint:test', () => {
-  return lint('test/spec/**/*.js', {
-    fix: true,
-    env: {
-      mocha: true
-    }
-  })
-    .pipe(gulp.dest('test/spec/**/*.js'));
-});
-
-gulp.task('html', ['styles', 'scripts'], () => {
-  return gulp.src('example/*.html')
-    .pipe($.useref({searchPath: ['.tmp', 'example', '.']}))
-    .pipe(gulp.dest('dist'));
-});
 
 gulp.task('images', () => {
   return gulp.src('example/images/**/*')
@@ -77,17 +63,7 @@ gulp.task('fonts', () => {
     .pipe(gulp.dest('dist/fonts'));
 });
 
-gulp.task('extras', () => {
-  return gulp.src([
-    'example/styles/ie/*.*'
-  ], {
-    dot: true
-  }).pipe(gulp.dest('dist/styles/ie/'));
-});
-
-gulp.task('clean', del.bind(null, ['.tmp', 'dist/*', '!dist/.*']));
-
-gulp.task('serve', ['ejs', 'styles', 'scripts', 'images', 'fonts'], () => {
+gulp.task('default', gulp.series('ejs', 'styles', 'scripts', 'images', 'fonts', function(done) {
   browserSync({
     notify: false,
     port: 9000,
@@ -102,44 +78,28 @@ gulp.task('serve', ['ejs', 'styles', 'scripts', 'images', 'fonts'], () => {
     '.tmp/fonts/**/*'
   ]).on('change', reload);
 
-  gulp.watch('example/**/*.ejs', ['ejs']);
-  gulp.watch('example/styles/**/*.css', ['styles']);
-  gulp.watch('example/scripts/**/*.js', ['scripts']);
-  gulp.watch('example/fonts/**/*', ['fonts']);
+  gulp.watch('example/**/*.ejs', gulp.series('ejs'));
+  gulp.watch('example/styles/**/*.css', gulp.series('styles'));
+  gulp.watch('example/scripts/**/*.js', gulp.series('scripts'));
+  gulp.watch('example/fonts/**/*', gulp.series('fonts'));
+
+  done();
+}));
+
+gulp.task('extras', () => {
+  return gulp.src([
+    'example/styles/ie/*.*'
+  ], {
+    dot: true
+  }).pipe(gulp.dest('dist/styles/ie/'));
 });
 
-gulp.task('serve:dist', () => {
-  browserSync({
-    notify: false,
-    port: 9000,
-    server: {
-      baseDir: ['dist']
-    }
-  });
-});
+gulp.task('clean', del.bind(null, ['.tmp', 'dist/*', '!dist/.*']));
 
-gulp.task('serve:test', ['scripts'], () => {
-  browserSync({
-    notify: false,
-    port: 9000,
-    ui: false,
-    server: {
-      baseDir: 'test',
-      routes: {
-        '/scripts': '.tmp/scripts'
-      }
-    }
-  });
-
-  gulp.watch('example/scripts/**/*.js', ['scripts']);
-  gulp.watch('test/spec/**/*.js').on('change', reload);
-  gulp.watch('test/spec/**/*.js', ['lint:test']);
-});
-
-gulp.task('build', ['lint', 'ejs', 'images', 'fonts', 'styles', 'scripts', 'extras'], () => {
+gulp.task('build', gulp.series('lint', 'ejs', 'images', 'fonts', 'styles', 'scripts', 'extras', () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
-});
+}));
 
-gulp.task('default', ['clean'], () => {
-  gulp.start('build');
-});
+gulp.task('default', gulp.series('clean', 'build', (done) => {
+  done();
+}));
